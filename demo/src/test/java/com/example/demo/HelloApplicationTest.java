@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @SpringBootTest(classes = DemoApplication.class)//指定springboot启动类
 @WebAppConfiguration//模拟ServletContext
 public class HelloApplicationTest {
+    //模拟调用controller的接口发送请求
     private MockMvc mvc;
 
     @Before
@@ -28,6 +29,11 @@ public class HelloApplicationTest {
 
     @Test
     public void hello() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/hello").accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().string(Matchers.equalTo("hello spring boot")));
+        mvc.perform(MockMvcRequestBuilders
+                .get("/hello")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content()
+                .string(Matchers.equalTo("hello spring boot")));
     }
 }
