@@ -1,13 +1,12 @@
 package com.example.demo.web;
 
 import com.example.demo.po.Book;
+import com.example.demo.po.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -23,6 +22,7 @@ public class HelloController {
         System.out.println(instance.getServiceId());
         return "hello spring boot";
     }
+
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     public String info() {
         ServiceInstance instance = clinet.getLocalServiceInstance();
@@ -30,5 +30,14 @@ public class HelloController {
         System.out.println(instance.getServiceId());
         return "hello spring info";
     }
+
+    @GetMapping(value = "/person/{id}")
+    public Person person(@PathVariable() int id, @RequestParam(required = false) String name) {
+        Person p = new Person();
+        p.setId(id);
+        p.setName(name);
+        return p;
+    }
+
 
 }
