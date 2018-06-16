@@ -17,20 +17,5 @@
             <artifactId>service</artifactId>
             <version>${project.version}</version>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.example.SpringBootAppApplication</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-
 </project>
