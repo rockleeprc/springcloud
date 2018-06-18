@@ -1,13 +1,16 @@
-package com.example.conf;
+package com.example.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
 
-@Configurable
+@Configuration
+@PropertySource(value = "classpath:dao.properties")
 public class DataSourceConfig {
     @Bean(name = "dataSource")
     public DataSource dataSource(Environment env) {
