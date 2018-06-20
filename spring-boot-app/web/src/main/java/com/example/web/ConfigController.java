@@ -1,7 +1,7 @@
 package com.example.web;
 
 import com.example.config.EnvConfig;
-import com.example.config.SpringConfig;
+import com.example.config.SpringDatasource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ public class ConfigController {
     private EnvConfig env;
 
     @Autowired
-    private SpringConfig springConfig;
+    private SpringDatasource springDatasource;
 
     /**
      * 通过Environment读取
@@ -38,7 +38,7 @@ public class ConfigController {
     @RequestMapping("/spring")
     public String spring() {
         System.out.println(env.getDatasourceUrl());
-        return springConfig.toString();
+        return springDatasource.toString();
     }
 
     /**

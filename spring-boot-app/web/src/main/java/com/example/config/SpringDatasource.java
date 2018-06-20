@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties("spring.datasource")
-public class SpringConfig {
+public class SpringDatasource {
     private String url;
     private String username;
     private String password;
@@ -13,7 +13,7 @@ public class SpringConfig {
 
     @Override
     public String toString() {
-        return "SpringConfig{" +
+        return "SpringDatasource{" +
                 "url='" + url + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
