@@ -37,8 +37,9 @@
 
     <!-- 项目中公有依赖-->
     <dependencyManagement>
+      <dependencies>
+      </dependencies>
     </dependencyManagement>
-
 
     <dependencies>
         <dependency>
@@ -74,6 +75,11 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>25.1-jre</version>
         </dependency>
     </dependencies>
 
