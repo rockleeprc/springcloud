@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 /**
  * http://localhost:8080/druid/index.html
  */
-@SuppressWarnings("serial")
 @WebServlet(urlPatterns = "/druid/*",
         initParams={
                 @WebInitParam(name="allow",value="127.0.0.1"),// IP白名单 (没有配置或者为空，则允许所有访问)
