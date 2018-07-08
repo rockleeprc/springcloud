@@ -1,25 +1,17 @@
 package com.exam.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.Cache;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
-import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 
 /**
  * Created by Administrator on 2018/7/8.
  */
-//@Configuration
-//public class RedisConfig extends CachingConfigurerSupport {
+@Configuration
+public class RedisConfig extends CachingConfigurerSupport {
 //    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 //    @Autowired
 //    private Environment env;
@@ -31,13 +23,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 //        redisConnectionFactory.setPort(Integer.parseInt(env.getProperty("spring.redis.port")));
 //        return redisConnectionFactory;
 //    }
-//
-//    @Bean
-//    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory cf) {
-//        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-//        redisTemplate.setConnectionFactory(cf);
-//        return redisTemplate;
-//    }
+
+    @Bean
+    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+        RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+        redisTemplate.setDefaultSerializer(new GenericJackson2JsonRedisSerializer());
+        return redisTemplate;
+    }
 //
 //    @Bean
 //    public CacheManager cacheManager(RedisTemplate<?, ?> redisTemplate) {
@@ -69,4 +62,4 @@ import org.springframework.data.redis.core.RedisTemplate;
 //            }
 //        };
 //    }
-//}
+}
