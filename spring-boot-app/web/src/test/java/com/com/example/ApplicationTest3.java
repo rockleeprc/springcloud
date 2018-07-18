@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
+ * 使用MockMvc
  * @SpringBootTest 不能和 @WebMvcTest 同时使用 * 如果使用MockMvc对象的话，需要另外加上@AutoConfigureMockMvc注解
  */
 @RunWith(SpringRunner.class)

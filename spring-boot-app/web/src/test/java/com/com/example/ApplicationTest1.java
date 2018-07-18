@@ -40,7 +40,6 @@ public class ApplicationTest1 {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/user/info",
                 String.class)).contains("hello");
 
-
     }
 
 
