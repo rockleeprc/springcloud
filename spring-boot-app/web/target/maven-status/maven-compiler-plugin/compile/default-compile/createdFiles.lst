@@ -1,7 +1,0 @@
-com\example\web\LoggingController.class
-com\example\config\EnvConfig.class
-com\example\web\ConfigController.class
-com\example\web\PersonController.class
-com\example\web\UserController.class
-com\example\SpringBootAppApplication.class
-com\example\config\SpringConfig.class
