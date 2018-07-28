@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController()
-@RequestMapping("/user")
+@RestController("/user")
 public class UserController {
     Log log  = LogFactory.getLog(UserController.class);
 

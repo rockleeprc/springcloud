@@ -19,7 +19,6 @@ public class ErrorController extends AbstractErrorController {
     Log log = LogFactory.getLog(ErrorController.class);
 //    public ErrorController() {
 //    }
-
     public ErrorController(ErrorAttributes errorAttributes) {
         super(errorAttributes);
     }
