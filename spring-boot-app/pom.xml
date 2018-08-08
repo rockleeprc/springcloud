@@ -103,6 +103,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <executable>true</executable>
                     <mainClass>com.example.SpringBootAppApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
