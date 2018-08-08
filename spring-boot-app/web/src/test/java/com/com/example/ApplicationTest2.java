@@ -1,6 +1,7 @@
 package com.com.example;
 
 import com.example.SpringBootAppApplication;
+import com.example.config.PropertyConfig;
 import com.example.service.UserService;
 import com.example.web.UserController;
 import org.junit.Test;
@@ -33,7 +34,14 @@ public class ApplicationTest2 {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PropertyConfig config;
 
+
+    @Test
+    public void property() {
+        System.out.println(config);
+    }
 
     @Test
     public void testInfo() throws Exception {

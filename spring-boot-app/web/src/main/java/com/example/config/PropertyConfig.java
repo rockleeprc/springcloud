@@ -1,14 +1,16 @@
 package com.example.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 @Configuration
 @PropertySource("classpath:dataSource.properties")
-@ConfigurationProperties(prefix = "jdbc")
+//@ConfigurationProperties(prefix = "jdbc")
 public class PropertyConfig {
 
     private String driverClassName;
+    @Value("${jdbc.url}")
     private String url;
     private String username;
     private String password;
