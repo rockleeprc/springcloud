@@ -1,0 +1,20 @@
+
+server:
+  port: 8088
+
+spring:
+  application:
+    name: repast-post-helper
+  profiles:
+    active:
+      - prod
+
+# mybatis-plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.yuneke
+  global-config:
+    db-config:
+      id-type: auto
+      field-strategy: NOT_EMPTY
+      db-column-underline: true
