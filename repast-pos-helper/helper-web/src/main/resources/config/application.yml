@@ -7,7 +7,7 @@ spring:
     name: repast-post-helper
   profiles:
     active:
-      - prod
+      - dev
 
 # mybatis-plus
 mybatis-plus:
