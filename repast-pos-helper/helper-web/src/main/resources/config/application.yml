@@ -7,12 +7,15 @@ spring:
     name: repast-post-helper
   profiles:
     active:
-      - dev
+      - prod
+
+logging:
+  config: classpath:config/logback-spring.xml
 
 # mybatis-plus
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  type-aliases-package: com.yuneke
+  type-aliases-package: com.yuneke.model
   global-config:
     db-config:
       id-type: auto
