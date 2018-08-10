@@ -1,4 +1,4 @@
-package com.yuneke.model;
+package com.yuneke.model.debuglog;
 
 import java.io.Serializable;
 import java.util.Date;

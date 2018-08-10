@@ -2,7 +2,7 @@ package com.yuneke.controller.debuglog;
 
 import com.yuneke.common.Result;
 import com.yuneke.interfaces.debuglog.AppDebugLogService;
-import com.yuneke.model.AppDebugLog;
+import com.yuneke.model.debuglog.AppDebugLog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
