@@ -22,7 +22,7 @@ public class AppDebugLogServiceTest {
     public void selectAll() {
         List<AppDebugLog> list = appDebugLogService.selectAll();
         Assert.assertTrue(list.isEmpty());
-        
+
         for (AppDebugLog log : list) {
             System.out.println(log.getDetail());
         }
