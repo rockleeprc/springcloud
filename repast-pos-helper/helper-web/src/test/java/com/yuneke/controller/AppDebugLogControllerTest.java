@@ -1,5 +1,6 @@
 package com.yuneke.controller;
 
+import com.yuneke.common.Result;
 import com.yuneke.controller.debuglog.AppDebugLogController;
 import com.yuneke.model.AppDebugLog;
 import org.junit.Assert;
@@ -17,16 +18,18 @@ import java.util.Date;
 @SpringBootTest
 public class AppDebugLogControllerTest {
 
-    private static final String URL = "http://localhost:8081";
-
     @Autowired
     private AppDebugLogController appDebugLogController;
 
     @Test
     public void point() {
         AppDebugLog entity = new AppDebugLog(11L, 22L, 33, "bb", new Date());
-        boolean result = appDebugLogController.point(entity);
-        Assert.assertTrue(result);
+        int type=5;
+        long userId=10L;
+        long merchantId=20L;
+        String detail = "AAA";
+        Result<Boolean> result = appDebugLogController.point(userId, merchantId, type, null);
+        Assert.assertTrue(Boolean.valueOf(result.getData()));
     }
 
 

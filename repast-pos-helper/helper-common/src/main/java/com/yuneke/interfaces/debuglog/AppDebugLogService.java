@@ -1,6 +1,5 @@
-package com.yuneke.debuglog.service;
+package com.yuneke.interfaces.debuglog;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.yuneke.model.AppDebugLog;
 

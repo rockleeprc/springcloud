@@ -1,8 +1,8 @@
-package com.yuneke.debuglog.service.impl;
+package com.yuneke.service.debuglog;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yuneke.appdebug.mapper.AppDebugLogMapper;
-import com.yuneke.debuglog.service.AppDebugLogService;
+import com.yuneke.interfaces.debuglog.AppDebugLogService;
 import com.yuneke.model.AppDebugLog;
 import org.springframework.stereotype.Service;
 

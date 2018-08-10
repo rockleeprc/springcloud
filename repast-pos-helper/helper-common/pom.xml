@@ -9,17 +9,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>helper-service</artifactId>
+    <artifactId>helper-common</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.yuneke</groupId>
-            <artifactId>helper-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.yuneke</groupId>
-            <artifactId>helper-dao</artifactId>
+            <artifactId>helper-model</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
