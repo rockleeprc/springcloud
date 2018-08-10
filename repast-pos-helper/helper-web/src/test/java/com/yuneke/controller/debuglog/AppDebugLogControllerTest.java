@@ -2,6 +2,7 @@ package com.yuneke.controller.debuglog;
 
 import com.yuneke.common.Result;
 import com.yuneke.controller.debuglog.AppDebugLogController;
+import com.yuneke.enums.AppDebugLogEnum;
 import com.yuneke.model.AppDebugLog;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +31,6 @@ public class AppDebugLogControllerTest {
         Result<Boolean> result = appDebugLogController.point(userId, merchantId, type, null);
         Assert.assertTrue(Boolean.valueOf(result.getData()));
     }
-
 
     @Test
     public void test() {

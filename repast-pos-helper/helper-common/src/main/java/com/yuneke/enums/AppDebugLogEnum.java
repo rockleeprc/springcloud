@@ -5,7 +5,7 @@ import com.yuneke.interfaces.common.Code;
 
 public class AppDebugLogEnum {
 
-    public enum Type implements Code {
+    public static enum Type implements Code {
         PUSH_1(1,"接收到推送"),
         PUSH_2(2,"获取GetPush接口前"),
         PUSH_3(3,"获取GetPush接口后"),
