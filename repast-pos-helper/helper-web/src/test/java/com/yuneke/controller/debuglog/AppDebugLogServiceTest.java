@@ -2,6 +2,7 @@ package com.yuneke.controller.debuglog;
 
 import com.yuneke.interfaces.debuglog.AppDebugLogService;
 import com.yuneke.model.debuglog.AppDebugLog;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ public class AppDebugLogServiceTest {
     private AppDebugLogService appDebugLogService;
 
     @Test
-    public void t() {
+    public void selectAll() {
         List<AppDebugLog> list = appDebugLogService.selectAll();
+        Assert.assertTrue(list.isEmpty());
+        
         for (AppDebugLog log : list) {
             System.out.println(log.getDetail());
         }
