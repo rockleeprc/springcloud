@@ -14,5 +14,6 @@ public class RepastPosHelperApplication {
         System.err.println("repast-pos-helper is success!");
         System.err.println("druid monitor. http://127.0.0.1:"+ ServiceInfo.getPort()+"/druid/index.html");
         System.err.println("sample started. http://127.0.0.1:" + ServiceInfo.getPort());
+        System.err.println("---Don't Use Prod Profile In Your Envriment---");
     }
 }
