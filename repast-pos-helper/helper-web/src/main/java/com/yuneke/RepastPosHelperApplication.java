@@ -15,9 +15,13 @@ public class RepastPosHelperApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RepastPosHelperApplication.class, args);
+
+        int port = ServiceInfo.getPort();
         logger.info("repast-pos-helper is success!");
-        logger.debug("druid monitor. http://127.0.0.1:"+ ServiceInfo.getPort()+"/druid/index.html");
-        logger.debug("sample started. http://127.0.0.1:" + ServiceInfo.getPort());
+        logger.debug("druid monitor. http://127.0.0.1:"+port +"/druid/index.html");
+        logger.debug("sample started. http://127.0.0.1:" + port);
         System.err.println("---Don't Use Prod Profile In Your Local Envriment---");
     }
+
+
 }
