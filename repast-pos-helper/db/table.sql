@@ -9,7 +9,6 @@ CREATE TABLE `app_debug_log` (
 	INDEX `merchant_type_user` (`merchant_id`, `type`, `user_id`)
 )
 COMMENT='app 调试日志'
-COLLATE='latin1_swedish_ci'
+COLLATE='utf8_general_ci'
 ENGINE=InnoDB
-AUTO_INCREMENT=16
 ;

@@ -22,4 +22,9 @@ public class AppDebugLogController {
         boolean result = appDebugLogService.insert(appDebugLog);
         return Result.ok(result);
     }
+
+    @RequestMapping("/date")
+    public Result<Date> date(){
+        return Result.ok(new Date());
+    }
 }
