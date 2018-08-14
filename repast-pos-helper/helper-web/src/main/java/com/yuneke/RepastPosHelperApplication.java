@@ -16,10 +16,10 @@ public class RepastPosHelperApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(RepastPosHelperApplication.class, args);
-        logger.info("repast-pos-helper is success!");
-        logger.debug("druid monitor. http://"+EnvironmentHolder.getAddr()+":"+EnvironmentHolder.getPort() +"/druid/index.html");
-        logger.debug("sample started. http://"+EnvironmentHolder.getAddr()+":" + EnvironmentHolder.getPort());
-        System.err.println("---Don't Use Prod Profile In Your Local Envriment---");
+        logger.info("repast-pos-helper Is Success!");
+        logger.debug("Druid Monitor. http://"+EnvironmentHolder.getAddr()+":"+EnvironmentHolder.getPort() +"/druid/index.html");
+        logger.debug("Sample Started. http://"+EnvironmentHolder.getAddr()+":" + EnvironmentHolder.getPort());
+        System.err.println("---Don't Use Prod Profile In Your Local Envrionment---");
     }
 
 
