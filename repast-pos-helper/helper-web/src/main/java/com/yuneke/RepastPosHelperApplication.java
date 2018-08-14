@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 @SpringBootApplication
-@ServletComponentScan
+//@ServletComponentScan
 public class RepastPosHelperApplication {
 
     private static final Logger logger = LoggerFactory.getLogger(RepastPosHelperApplication.class);
