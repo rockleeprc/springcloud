@@ -1,5 +1,5 @@
 server:
-  port: 8088
+  port: 8090
   tomcat:
     accesslog:
       enabled: true
@@ -11,7 +11,7 @@ spring:
     url: jdbc:mysql://47.106.96.183:3306/canteen?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: zyb
     password: 
-    driver-class-name: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
     minIdle: 20
@@ -25,5 +25,5 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     maxPoolPreparedStatementPerConnectionSize: 20
-    filters: stat,wall,log4j
+    filters: stat,wall,slf4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
