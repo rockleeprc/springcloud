@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class SpringBootAppApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootAppApplication.class, args);
 //		SpringApplication app = new SpringApplication(SpringBootApplication.class);
