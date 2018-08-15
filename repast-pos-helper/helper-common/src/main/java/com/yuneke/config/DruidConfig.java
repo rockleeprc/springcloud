@@ -14,16 +14,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-@Configuration
+//@Configuration
+@Deprecated
 public class DruidConfig {
-    @Bean
+    //@Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource druidDataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         return druidDataSource;
     }
 
-    @Bean
+    //@Bean
+    @Deprecated
     public ServletRegistrationBean druidStatViewServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean();
         servletRegistrationBean.setServlet(new StatViewServlet());
@@ -39,7 +41,8 @@ public class DruidConfig {
     }
 
 
-    @Bean
+    //@Bean
+    @Deprecated
     public FilterRegistrationBean druidWebStatFilter(){
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean(new WebStatFilter());
         filterRegistrationBean.addUrlPatterns("/*");
