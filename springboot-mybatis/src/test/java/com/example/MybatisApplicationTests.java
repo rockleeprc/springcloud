@@ -36,7 +36,7 @@ public class MybatisApplicationTests {
     }
 
     @Test
-    public void AppDebugLogMapper() {
+    public void appDebugLogMapper() {
         AppDebugLog appDebugLog = appDebugLogMapper.selectByPrimaryKey(16L);
         System.out.println(appDebugLog.getDetail());
         System.out.println(appDebugLog.getCreateTime());

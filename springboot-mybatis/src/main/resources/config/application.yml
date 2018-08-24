@@ -42,13 +42,12 @@ spring:
 
 # mybatis 配置
 mybatis:
-    type-aliases-package: com.example.domain
-    mapper-locations: classpath:mapper/*.xml
+    typeAliasesPackage: com.example.domain
+    mapperLocations: classpath:mapper/*.xml
     #config-location:
     configuration:
-        map-underscore-to-camel-case: true
-        default-fetch-size: 100
-        default-statement-timeout: 30
+        mapUnderscoreToCamelCase: true
+        defaultStatementTimeout: 30
 
 # pagehelper分页插件
 pagehelper:
