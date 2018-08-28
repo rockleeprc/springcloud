@@ -98,8 +98,8 @@ public class JestTest {
     @Test
     public void search1() {
         List<Field> criterias = new ArrayList<Field>();
-        criterias.add(new Field("id", "1"));
-        SearchResult result = index("test", "user", "liyan", "name", criterias, client, 1, 2);
+        criterias.add(new Field("status", "Y"));
+        SearchResult result = index("test", "user", "是否", "name", criterias, client, 1, 2);
         List<User> list = result.getSourceAsObjectList(User.class, false);
         System.out.println(Arrays.toString(list.toArray()));
     }
@@ -357,11 +357,4 @@ public class JestTest {
         }
 
     }
-
-    @Test
-    public void t() {
-        System.out.println(client);
-    }
-
-
 }

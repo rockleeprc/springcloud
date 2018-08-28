@@ -12,6 +12,7 @@ import io.searchbox.indices.mapping.GetMapping;
 import io.searchbox.indices.mapping.PutMapping;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.*;
@@ -34,6 +35,7 @@ public class Exmaple {
     private String url = "http://47.106.214.111:9200";
     private String indexName = "test";
     private String typeName = "user";
+
 
     @Test
     public void t2() throws IOException {
@@ -136,24 +138,60 @@ public class Exmaple {
     }
 
     @Test
-    public void match() throws IOException {
+    public void query() throws IOException {
+        // 匹配单个字段
+//        MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("name", "是否");
 
-        int pageNum = 4;
+        // 多个字段匹配某一个值
+//        MultiMatchQueryBuilder matchQuery = QueryBuilders.multiMatchQuery("如果", "name", "status");
+
+        // ?匹配单个字符，*匹配多个字符，中文时只能匹配一个汉字
+//        WildcardQueryBuilder matchQuery1 = QueryBuilders.wildcardQuery("name", "*需*");
+//        WildcardQueryBuilder matchQuery2 = QueryBuilders.wildcardQuery("name", "*的*");
+        //复合条件查询
+//        BoolQueryBuilder matchQuery = QueryBuilders.boolQuery();
+        // 多个must=and
+//        matchQuery.must(matchQuery1);
+//        matchQuery.must(matchQuery2);
+
+        // 多个should=or
+//        matchQuery.should(matchQuery1);
+//        matchQuery.should(matchQuery2);
+
+        // 匹配+条件过滤 name字段中包含“是否” and (id=2 or id=5的数据)
+        BoolQueryBuilder matchQuery = QueryBuilders.boolQuery();
+        MatchQueryBuilder matchField = QueryBuilders.matchQuery("name", "是否");
+        BoolQueryBuilder filterBuilder = QueryBuilders.boolQuery();
+        filterBuilder.should(QueryBuilders.termQuery("id", "2")).should(QueryBuilders.termQuery("id", "5"));
+        matchQuery.must(matchField).filter(filterBuilder);
+
+
+        SearchSourceBuilder query = new SearchSourceBuilder();
+        query.query(matchQuery);
+
+        Search search = new Search.Builder(query.toString()).addIndex(indexName).addType(typeName).build();
+        SearchResult result = client.execute(search);
+        List<User> list = result.getSourceAsObjectList(User.class, false);
+        System.out.println(Arrays.toString(list.toArray()));
+    }
+
+    @Test
+    public void matchAll() throws IOException {
+
+        int pageNum = 1;
         int pageSize = 2;
 
         MatchAllQueryBuilder matchQuery = QueryBuilders.matchAllQuery();
-        System.out.println(matchQuery.toString());
-        SearchSourceBuilder searchBuilder = new SearchSourceBuilder();
-        searchBuilder.query(matchQuery);
-        searchBuilder.from((pageNum - 1) * pageSize);
-        searchBuilder.size(pageSize);
+        SearchSourceBuilder query = new SearchSourceBuilder();
+        query.query(matchQuery);
+        query.size(pageSize);
+        query.from((pageNum - 1) * pageSize);
 
-        Search search = new Search.Builder(searchBuilder.toString()).addIndex("test").addType("user").build();
+        Search search = new Search.Builder(query.toString()).addIndex(indexName).addType(typeName).build();
         SearchResult result = client.execute(search);
-        System.out.println(result.getTotal()%pageSize==0?result.getTotal()/pageSize:result.getTotal()/pageSize+1);
-        List<User> list = result.getSourceAsObjectList(User.class, false);
+        List<User> users = result.getSourceAsObjectList(User.class, false);
+        System.out.println(Arrays.toString(users.toArray()));
 
-        System.out.println(Arrays.toString(list.toArray()));
 
     }
 
@@ -163,8 +201,8 @@ public class Exmaple {
         int pageSize = 2;
 
         //文本检索，应该是将查询的词先分成词库中存在的词，然后分别去检索，存在任一存在的词即返回，查询词分词后是OR的关系。需要转义特殊字符
-        QueryBuilder q1 = QueryBuilders.queryStringQuery(QueryParser.escape("结果"));
-        MatchQueryBuilder q3 = QueryBuilders.matchQuery("status", "X");
+        QueryBuilder q1 = QueryBuilders.queryStringQuery(QueryParser.escape("如果"));
+        MatchQueryBuilder q3 = QueryBuilders.matchQuery("status", "Y");
         BoolQueryBuilder bb = QueryBuilders.boolQuery();
         bb.must(q1).must(q3);
 
@@ -179,7 +217,7 @@ public class Exmaple {
                 .addType("user").build();
         SearchResult result = client.execute(search);
         System.out.println(result.getTotal());
-        System.out.println(result.getTotal()%pageSize==0?result.getTotal()/pageSize:result.getTotal()/pageSize+1);
+        System.out.println(result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1);
 
         List<SearchResult.Hit<User, Void>> hits = result.getHits(User.class);
         System.out.println("Size:" + hits.size());
@@ -375,6 +413,7 @@ public class Exmaple {
     @Test
     public void putIndexMapping() throws IOException {
         String source = "{\"aaa\":{\"mappings\":{\"user\":{\"properties\":{\"birth\":{\"type\":\"text\",\"fields\":{\"keyword\":{\"type\":\"keyword\",\"ignore_above\":256}}},\"id\":{\"type\":\"long\"},\"name\":{\"type\":\"text\",\"fields\":{\"keyword\":{\"type\":\"keyword\",\"ignore_above\":256}}}}}}}}";
+
         PutMapping putMapping = new PutMapping.Builder("aaa", "user", source).build();
         JestResult result = client.execute(putMapping);
         System.out.println(result.isSucceeded());
