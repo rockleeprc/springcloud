@@ -178,7 +178,7 @@ public class JestTest {
      */
     @Test
     public void update() throws IOException {
-        User u = new User(1, "zhangsan-update-upd", new Date());
+        User u = new User(1, "zhangsan-update-upd", new Date(), "Y");
         DocumentResult result = client.execute(new Update.Builder(u)
                 .index("test")
                 .type("user")
@@ -194,13 +194,35 @@ public class JestTest {
      */
     @Test
     public void insert() throws IOException {
-        User u = new User(2, "ligui", new Date());
-        DocumentResult result = client.execute(new Index.Builder(u)
-                .index("test")
-                .type("user")
-                .refresh(true)
-                .build());
-        System.out.println(result.isSucceeded());
+        User u1 = new User(1, "是否记录上次执行结果, 如果为真,将会把上次执行到的", new Date(), "X");
+        User u2 = new User(2, "是否需要记录某个column 的值", new Date(), "Y");
+        User u3 = new User(3, "指定文件,来记录上次执行到的 tracking_column 字段的值", new Date(), "Y");
+        User u4 = new User(4, "我们只需要在 SQL 语句中 WHERE MY_ID > :last_sql_value 即可", new Date(), "X");
+        User u5 = new User(5, "是否清除 last_run_metadata_path 的记录", new Date(), "Y");
+        DocumentResult result1 = client.execute(new Index.Builder(u1).index("test").type("user").refresh(true).build());
+        DocumentResult result2 = client.execute(new Index.Builder(u2).index("test").type("user").refresh(true).build());
+        DocumentResult result3 = client.execute(new Index.Builder(u3).index("test").type("user").refresh(true).build());
+        DocumentResult result4 = client.execute(new Index.Builder(u4).index("test").type("user").refresh(true).build());
+        DocumentResult result5 = client.execute(new Index.Builder(u5).index("test").type("user").refresh(true).build());
+//        System.out.println(result.isSucceeded());
+    }
+
+    @Test
+    public void batchInsert() throws IOException {
+        List<User> list = Arrays.asList(new User(1, "是否记录上次执行结果, 如果为真,将会把上次执行到的", new Date(), "X"),
+                new User(2, "是否需要记录某个column 的值", new Date(), "Y"),
+                new User(3, "指定文件,来记录上次执行到的 tracking_column 字段的值", new Date(), "Y"),
+                new User(4, "我们只需要在 SQL 语句中 WHERE MY_ID > :last_sql_value 即可", new Date(), "X"),
+                new User(5, "是否清除 last_run_metadata_path 的记录", new Date(), "Y"));
+
+        Bulk.Builder bulkBuilder = new Bulk.Builder();
+        //循环构造批量数据
+        for (User u : list) {
+            Index indexDoc = new Index.Builder(u).index("test").type("user").build();
+            bulkBuilder.addAction(indexDoc);
+        }
+        BulkResult br = client.execute(bulkBuilder.build());
+        System.out.println(br.isSucceeded());
     }
 
     @Test

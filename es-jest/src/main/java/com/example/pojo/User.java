@@ -10,7 +10,16 @@ public class User {
     private Integer id;
     private String name;
     private Date birth;
+    private String status;
 
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;
@@ -41,15 +50,21 @@ public class User {
     }
 
 
-    public User(Integer id, String name, Date birth) {
+    public User(Integer id, String name, Date birth,String status) {
         super();
         this.id = id;
         this.name = name;
         this.birth = birth;
+        this.status=status;
     }
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", name=" + name + ", birth=" + birth + "]";
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birth=" + birth +
+                ", status='" + status + '\'' +
+                '}';
     }
 }
