@@ -29,29 +29,42 @@ public class ArticleTest {
 
     @Test
     public void testSearch() throws IOException {
-        List<Article> list = search("内容", "zh", "站点名称6", 1, 10);
+        List<Article> list = search("中国", "zh", "站点名称6", 1, 10);
         for (Article article : list) {
             System.out.println(article);
         }
     }
 
+    /**
+     * 标题/内容检索
+     *
+     * @param keyword    检索关键字
+     * @param nationCode 国家代码
+     * @param siteName   站点名称
+     * @param pageNum    页码
+     * @param pageSize   页记录数b
+     * @return
+     * @throws IOException
+     */
     public List<Article> search(String keyword, String nationCode, String siteName, int pageNum, int pageSize) throws IOException {
+        // 检索条件，文章标题 or 文章内容
         QueryBuilder name = QueryBuilders.termQuery("articleNationName", QueryParser.escape(keyword));
         QueryBuilder content = QueryBuilders.termQuery("articleNationContent", QueryParser.escape(keyword));
-
         BoolQueryBuilder searchKeyWord = QueryBuilders.boolQuery();
         searchKeyWord.should(name).should(content);
 
+        // 过滤条件，文章删除状态 and 站点 and 国家检索
         QueryBuilder articleNationDel = QueryBuilders.matchQuery("articleNationDel", NOT_DEL);
         QueryBuilder site = QueryBuilders.matchQuery("siteName", siteName);
         QueryBuilder nation = QueryBuilders.matchQuery("nationCode", nationCode);
-
         BoolQueryBuilder filter = QueryBuilders.boolQuery();
         filter.must(articleNationDel).must(site).must(nation);
 
+        // 检索数据后过滤
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
         boolQuery.must(searchKeyWord).filter(filter);
 
+        // 查询设置
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         searchSourceBuilder.query(boolQuery);
         searchSourceBuilder.from((pageNum - 1) * pageSize);
@@ -60,6 +73,7 @@ public class ArticleTest {
 
         Search search = new Search.Builder(query).addIndex(indexName).addType(typeName).build();
         SearchResult result = ESClient.getClient().execute(search);
+
         System.out.println("total page:" + (result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1));
 
         return result.getSourceAsObjectList(Article.class, false);
@@ -107,8 +121,8 @@ public class ArticleTest {
 
     @Test
     public void batchInsert() throws IOException {
-        AtomicInteger id = new AtomicInteger(1);
-        AtomicInteger artileId = new AtomicInteger(1);
+        AtomicInteger id = new AtomicInteger(0);
+        AtomicInteger artileId = new AtomicInteger(0);
         List<Article> articles = Arrays.asList(
                 new Article(id.incrementAndGet(), DEL, new Date(), "名称1", "内容1", artileId.incrementAndGet(), 1, "zh", 1, "站点名称1", 1, "分类名称", DEL, 1, "分区名称", DEL),
                 new Article(id.incrementAndGet(), NOT_DEL, new Date(), "名称2", "内容2", artileId.incrementAndGet(), 1, "zh", 1, "站点名称2", 1, "分类名称", NOT_DEL, 1, "分区名称", NOT_DEL),

@@ -2,9 +2,12 @@ package com.example.pojo;
 
 import io.searchbox.annotations.JestId;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
+public class Article implements Serializable {
+
+
     @JestId
     private Integer articleNationId;
     private Integer articleNationDel;
