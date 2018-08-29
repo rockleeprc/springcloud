@@ -199,11 +199,15 @@ public class JestTest {
         User u3 = new User(3, "指定文件,来记录上次执行到的 tracking_column 字段的值", new Date(), "Y");
         User u4 = new User(4, "我们只需要在 SQL 语句中 WHERE MY_ID > :last_sql_value 即可", new Date(), "X");
         User u5 = new User(5, "是否清除 last_run_metadata_path 的记录", new Date(), "Y");
-        DocumentResult result1 = client.execute(new Index.Builder(u1).index("test").type("user").refresh(true).build());
-        DocumentResult result2 = client.execute(new Index.Builder(u2).index("test").type("user").refresh(true).build());
-        DocumentResult result3 = client.execute(new Index.Builder(u3).index("test").type("user").refresh(true).build());
-        DocumentResult result4 = client.execute(new Index.Builder(u4).index("test").type("user").refresh(true).build());
-        DocumentResult result5 = client.execute(new Index.Builder(u5).index("test").type("user").refresh(true).build());
+        User u6 = new User(6, "투자 유의사항: 높은 가격 변동성 때문에 디지털 자산에 대한 투자 손실이 발생할 수 있습니다. 투자하기 ", new Date(), "Y");
+        User u7 = new User(7, "中国人民共和国国歌", new Date(), "Y");
+        DocumentResult result1 = client.execute(new Index.Builder(u1).index("test").type("person").refresh(true).build());
+        DocumentResult result2 = client.execute(new Index.Builder(u2).index("test").type("person").refresh(true).build());
+        DocumentResult result3 = client.execute(new Index.Builder(u3).index("test").type("person").refresh(true).build());
+        DocumentResult result4 = client.execute(new Index.Builder(u4).index("test").type("person").refresh(true).build());
+        DocumentResult result5 = client.execute(new Index.Builder(u5).index("test").type("person").refresh(true).build());
+        DocumentResult result6 = client.execute(new Index.Builder(u6).index("test").type("person").refresh(true).build());
+        DocumentResult result7 = client.execute(new Index.Builder(u7).index("test").type("person").refresh(true).build());
 //        System.out.println(result.isSucceeded());
     }
 
@@ -260,6 +264,11 @@ public class JestTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void deleteType(){
+
     }
 
     @Test

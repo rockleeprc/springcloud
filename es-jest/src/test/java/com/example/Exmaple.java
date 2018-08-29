@@ -13,6 +13,9 @@ import io.searchbox.indices.mapping.PutMapping;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.elasticsearch.action.admin.indices.analyze.AnalyzeRequestBuilder;
+import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingRequest;
+import org.elasticsearch.client.Requests;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.*;
@@ -201,7 +204,7 @@ public class Exmaple {
         int pageSize = 2;
 
         //文本检索，应该是将查询的词先分成词库中存在的词，然后分别去检索，存在任一存在的词即返回，查询词分词后是OR的关系。需要转义特殊字符
-        QueryBuilder q1 = QueryBuilders.queryStringQuery(QueryParser.escape("如果"));
+        QueryBuilder q1 = QueryBuilders.queryStringQuery(QueryParser.escape("共和国"));
         MatchQueryBuilder q3 = QueryBuilders.matchQuery("status", "Y");
         BoolQueryBuilder bb = QueryBuilders.boolQuery();
         bb.must(q1).must(q3);
@@ -214,7 +217,7 @@ public class Exmaple {
         System.out.println(searchSourceBuilder);
 
         Search search = new Search.Builder(query).addIndex("test")
-                .addType("user").build();
+                .addType("person").build();
         SearchResult result = client.execute(search);
         System.out.println(result.getTotal());
         System.out.println(result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1);
@@ -229,19 +232,38 @@ public class Exmaple {
     }
 
     @Test
-    public void queryString() throws Exception {
+    public void queryStringE() throws Exception {
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
         //文本检索，应该是将查询的词先分成词库中存在的词，然后分别去检索，存在任一存在的词即返回，查询词分词后是OR的关系。需要转义特殊字符
-        QueryBuilder queryBuilder = QueryBuilders.queryStringQuery(QueryParser.escape("如果"));
+        QueryBuilder queryBuilder = QueryBuilders.queryStringQuery(QueryParser.escape("国家"));
         searchSourceBuilder.query(queryBuilder);
         searchSourceBuilder.size(10);
         searchSourceBuilder.from(0);//(pageNumber - 1) * pageSize
         String query = searchSourceBuilder.toString();
         System.out.println(query);
 
-        Search search = new Search.Builder(query).addIndex("test")
-                .addType("user").build();
+        Search search = new Search.Builder(query).addIndex("index")
+                .addType("test1").build();
+        SearchResult result = client.execute(search);
+
+        String json = result.getJsonString();
+        System.out.println(json);
+    }
+    @Test
+    public void queryString() throws Exception {
+
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        //文本检索，应该是将查询的词先分成词库中存在的词，然后分别去检索，存在任一存在的词即返回，查询词分词后是OR的关系。需要转义特殊字符
+        QueryBuilder queryBuilder = QueryBuilders.queryStringQuery(QueryParser.escape("教练"));
+        searchSourceBuilder.query(queryBuilder);
+        searchSourceBuilder.size(10);
+        searchSourceBuilder.from(0);//(pageNumber - 1) * pageSize
+        String query = searchSourceBuilder.toString();
+        System.out.println(query);
+
+        Search search = new Search.Builder(query).addIndex("index")
+                .addType("test1").build();
         JestResult result = client.execute(search);
 
         List<SearchResult.Hit<User, Void>> hits = ((SearchResult) result).getHits(User.class);
@@ -411,6 +433,68 @@ public class Exmaple {
      * @throws IOException
      */
     @Test
+    public void putIndexMapping1() throws IOException {
+        XContentBuilder mapping = null;
+        mapping = XContentFactory.jsonBuilder()
+                .startObject()
+                //关闭TTL
+                .startObject("_ttl")
+                .field("enabled", false)
+                .endObject()
+                .startObject("properties")
+                .startObject("id").field("type", "long").endObject()
+                .startObject("title").field("type", "text")
+                .field("store", "yes")
+//                //指定index analyzer 为 ik
+//                .field("analyzer", "ik_syno")
+//                //指定search_analyzer 为ik_syno
+//                .field("searchAnalyzer", "ik_syno")
+                .endObject()
+                .startObject("description").field("type", "text").field("index", "not_analyzed").endObject()
+                .startObject("url").field("type", "string").field("index", "not_analyzed").endObject()
+                .startObject("type").field("type", "integer").endObject()
+                .endObject()
+                .endObject();
+        String source = mapping.string();
+        System.out.println(source);
+        PutMapping putMapping = new PutMapping.Builder("shop_v1", "goods", source).build();
+        JestResult result = client.execute(putMapping);
+        System.out.println(result.isSucceeded());
+    }
+
+
+
+    public XContentBuilder getMapping() {
+        XContentBuilder mapping = null;
+        try {
+            mapping = XContentFactory.jsonBuilder()
+                    .startObject()
+                    //关闭TTL
+                    .startObject("_ttl")
+                    .field("enabled", false)
+                    .endObject()
+                    .startObject("properties")
+                    .startObject("id").field("type", "long").endObject()
+                    .startObject("title")
+                    .field("type", "string")
+                    .field("store", "yes")
+                    //指定index analyzer 为 ik
+                    .field("analyzer", "ik")
+                    //指定search_analyzer 为ik_syno
+                    .field("searchAnalyzer", "ik_syno")
+                    .endObject()
+                    .startObject("description").field("type", "string").field("index", "not_analyzed").endObject()
+                    .startObject("url").field("type", "string").field("index", "not_analyzed").endObject()
+                    .startObject("type").field("type", "integer").endObject()
+                    .endObject()
+                    .endObject();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return mapping;
+    }
+
+    @Test
     public void putIndexMapping() throws IOException {
         String source = "{\"aaa\":{\"mappings\":{\"user\":{\"properties\":{\"birth\":{\"type\":\"text\",\"fields\":{\"keyword\":{\"type\":\"keyword\",\"ignore_above\":256}}},\"id\":{\"type\":\"long\"},\"name\":{\"type\":\"text\",\"fields\":{\"keyword\":{\"type\":\"keyword\",\"ignore_above\":256}}}}}}}}";
 
@@ -426,7 +510,7 @@ public class Exmaple {
      */
     @Test
     public void createIndex() throws IOException {
-        CreateIndex index = new CreateIndex.Builder("aaa").build();
+        CreateIndex index = new CreateIndex.Builder("shop_v1").build();
         JestResult result = client.execute(index);
         System.out.println(result.isSucceeded());
     }
