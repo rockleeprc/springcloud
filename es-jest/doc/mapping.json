@@ -1,0 +1,72 @@
+{
+  "settings": {
+    "number_of_shards": 5,
+    "number_of_replicas": 1,
+    "analysis": {
+      "analyzer": {
+        "ik": {
+          "tokenizer": "ik_max_word"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "article": {
+      "_all": {
+        "enabled": false
+      },
+      "properties": {
+        "articleNationId": {
+          "type": "integer"
+        },
+        "articleNationDel": {
+          "type": "integer"
+        },
+        "articleNationUpdateTime": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
+        "articleNationName": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "articleNationContent": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+        },
+        "articleId": {
+          "type": "integer"
+        },
+        "nationId": {
+          "type": "integer"
+        },
+        "siteId": {
+          "type": "integer"
+        },
+        "siteName": {
+          "type": "keyword"
+        },
+        "categoryId": {
+          "type": "integer"
+        },
+        "categoryName": {
+          "type": "keyword"
+        },
+        "categoryDel": {
+          "type": "integer"
+        },
+        "sectionsId": {
+          "type": "integer"
+        },
+        "sectionsName": {
+          "type": "keyword"
+        },
+        "sectionsDel": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
