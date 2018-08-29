@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.pojo.Content;
 import com.example.pojo.User;
 import com.google.gson.GsonBuilder;
 import io.searchbox.client.JestClient;
@@ -223,6 +224,27 @@ public class JestTest {
         //循环构造批量数据
         for (User u : list) {
             Index indexDoc = new Index.Builder(u).index("test").type("user").build();
+            bulkBuilder.addAction(indexDoc);
+        }
+        BulkResult br = client.execute(bulkBuilder.build());
+        System.out.println(br.isSucceeded());
+    }
+    @Test
+    public void batchInsertContent() throws IOException {
+        List<Content> list = Arrays.asList(
+                new Content(1, "我是","中国人","关闭自动添加字段","关闭后索引数据中如果有多余字段不会修改mapping,默认true",new Date(), "X"),
+                new Content(2, "我是","东北人","禁用_source字段","_source字段在生成索引过程中存储发送到elasticsear",new Date(), "X"),
+                new Content(3, "我是","上海人","启用时间戳并设置","时间戳记录文档索引时间",new Date(), "Y"),
+                new Content(4, "我是","上海人","定义文档的生命周期,周期结束后文档会自动删除","指定将name字段作为路由",new Date(), "X"),
+                new Content(5, "我是","非洲人","且每个文档必须指定name字","编入索引供搜索、no:不编入索引",new Date(), "Y"),
+                new Content(6, "我是","上海人","启用时间戳并设置","天安门",new Date(), "X")
+        );
+
+
+                Bulk.Builder bulkBuilder = new Bulk.Builder();
+        //循环构造批量数据
+        for (Content u : list) {
+            Index indexDoc = new Index.Builder(u).index("content").type("content").build();
             bulkBuilder.addAction(indexDoc);
         }
         BulkResult br = client.execute(bulkBuilder.build());

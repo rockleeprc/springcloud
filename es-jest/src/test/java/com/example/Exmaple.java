@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.pojo.Content;
 import com.example.pojo.User;
 import com.google.gson.GsonBuilder;
 import io.searchbox.client.JestClient;
@@ -163,7 +164,7 @@ public class Exmaple {
 
         // 匹配+条件过滤 name字段中包含“是否” and (id=2 or id=5的数据)
         BoolQueryBuilder matchQuery = QueryBuilders.boolQuery();
-        MatchQueryBuilder matchField = QueryBuilders.matchQuery("name", "是否");
+        MatchQueryBuilder matchField = QueryBuilders.matchQuery("b", "非洲");
         BoolQueryBuilder filterBuilder = QueryBuilders.boolQuery();
         filterBuilder.should(QueryBuilders.termQuery("id", "2")).should(QueryBuilders.termQuery("id", "5"));
         matchQuery.must(matchField).filter(filterBuilder);
@@ -199,35 +200,48 @@ public class Exmaple {
     }
 
     @Test
+    public void queryContent() {
+        MatchQueryBuilder matchQuery = QueryBuilders.matchQuery("a", "是");
+        SearchSourceBuilder builder = new SearchSourceBuilder();
+        builder.query(matchQuery);
+
+
+    }
+
+    @Test
     public void queryString1() throws Exception {
         int pageNum = 1;
-        int pageSize = 2;
+        int pageSize = 10;
 
         //文本检索，应该是将查询的词先分成词库中存在的词，然后分别去检索，存在任一存在的词即返回，查询词分词后是OR的关系。需要转义特殊字符
-        QueryBuilder q1 = QueryBuilders.queryStringQuery(QueryParser.escape("共和国"));
-        MatchQueryBuilder q3 = QueryBuilders.matchQuery("status", "Y");
-        BoolQueryBuilder bb = QueryBuilders.boolQuery();
-        bb.must(q1).must(q3);
+//        QueryBuilder b = QueryBuilders.queryStringQuery(QueryParser.escape("国人"));
+        QueryBuilder a = QueryBuilders.termQuery("a","是");
+        QueryBuilder b = QueryBuilders.matchQuery("b","上海人");
+//        QueryBuilder c = QueryBuilders.matchQuery("d","天安门");
+        QueryBuilder d = QueryBuilders.matchQuery("d","天安门");
+        MatchQueryBuilder statusMatch = QueryBuilders.matchQuery("status", "X");
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
+        boolQuery.must(a).must(b).should(d).must(statusMatch);
 
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
-        searchSourceBuilder.query(bb);
-        searchSourceBuilder.from((pageNum - 1) * pageSize);
-        searchSourceBuilder.size(pageSize);
+        searchSourceBuilder.query(boolQuery);
+//        searchSourceBuilder.from((pageNum - 1) * pageSize);
+//        searchSourceBuilder.size(pageSize);
         String query = searchSourceBuilder.toString();
         System.out.println(searchSourceBuilder);
 
-        Search search = new Search.Builder(query).addIndex("test")
-                .addType("person").build();
+        Search search = new Search.Builder(query).addIndex("content")
+                .addType("content").build();
         SearchResult result = client.execute(search);
         System.out.println(result.getTotal());
         System.out.println(result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1);
 
-        List<SearchResult.Hit<User, Void>> hits = result.getHits(User.class);
+        List<SearchResult.Hit<Content, Void>> hits = result.getHits(Content.class);
         System.out.println("Size:" + hits.size());
 
-        for (SearchResult.Hit<User, Void> hit : hits) {
-            User user = hit.source;
-            System.out.println(user.toString());
+        for (SearchResult.Hit<Content, Void> hit : hits) {
+            Content content = hit.source;
+            System.out.println(content.toString());
         }
     }
 
@@ -250,6 +264,7 @@ public class Exmaple {
         String json = result.getJsonString();
         System.out.println(json);
     }
+
     @Test
     public void queryString() throws Exception {
 
@@ -461,7 +476,6 @@ public class Exmaple {
         JestResult result = client.execute(putMapping);
         System.out.println(result.isSucceeded());
     }
-
 
 
     public XContentBuilder getMapping() {
