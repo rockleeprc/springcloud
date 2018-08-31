@@ -7,6 +7,7 @@ import io.searchbox.client.JestClient;
 import io.searchbox.client.JestClientFactory;
 import io.searchbox.client.JestResult;
 import io.searchbox.client.config.HttpClientConfig;
+import io.searchbox.cluster.Health;
 import io.searchbox.core.*;
 import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.mapping.GetMapping;
@@ -39,6 +40,18 @@ public class Exmaple {
     private String url = "http://47.106.214.111:9200";
     private String indexName = "test";
     private String typeName = "user";
+
+
+    /**
+     * 查看集群健康信息
+     * @throws Exception
+     */
+    @Test
+    public  void health() throws Exception {
+        Health health = new Health.Builder().build();
+        JestResult result = client.execute(health);
+        System.out.println(result.getJsonString());
+    }
 
 
     @Test
@@ -118,7 +131,6 @@ public class Exmaple {
         SearchResult result = client.execute(search);
 
         List<SearchResult.Hit<User, Void>> hits = result.getHits(User.class);
-
         for (SearchResult.Hit<User, Void> hit : hits) {
             User user = hit.source;
             //获取高亮后的内容
