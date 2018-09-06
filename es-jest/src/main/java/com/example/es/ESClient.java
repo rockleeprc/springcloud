@@ -1,6 +1,7 @@
 package com.example.es;
 
-import com.example.pojo.Article;
+import com.example.pojo.ArticleSearch;
+import com.example.pojo.ArticleSearchVo;
 import com.google.common.collect.Lists;
 import com.google.gson.GsonBuilder;
 import io.searchbox.client.JestClient;
@@ -19,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +32,7 @@ public class ESClient {
     private static final List<String> URLS = Arrays.asList("http://47.106.214.111:9200");
     private static final int DEL = 1;
     private static final int NOT_DEL = 2;
-    private static final String indexName = "art";
+    private static final String indexName = "article";
     private static final String typeName = "article";
 
     public static JestClient getClient() {
@@ -59,15 +61,15 @@ public class ESClient {
      *
      * @param keyword    检索关键字
      * @param nationCode 国家代码
-     * @param siteName   站点名称
+     * @param domain   站点名称
      * @param pageNum    页码
      * @param pageSize   页记录数
      * @return
      * @throws IOException
      */
-    public static List<Article> search(String keyword, String nationCode, String siteName, int pageNum, int pageSize) throws IOException {
-        if (StringUtils.isEmpty(keyword) || StringUtils.isEmpty(nationCode) || StringUtils.isEmpty(siteName)) {
-            return Lists.newArrayList();
+    public static ArticleSearchVo search(String keyword, String nationCode, String domain, int pageNum, int pageSize) throws IOException {
+        if (StringUtils.isEmpty(keyword) || StringUtils.isEmpty(nationCode) || StringUtils.isEmpty(domain)) {
+            return new ArticleSearchVo();
         }
         pageNum = pageNum <= 0 ? 1 : pageNum;
         pageSize = pageSize <= 0 ? 10 : pageSize;
@@ -81,7 +83,7 @@ public class ESClient {
 
         // 过滤条件，文章删除状态 and 站点 and 国家检索
         QueryBuilder articleNationDel = QueryBuilders.termQuery("articleNationDel", NOT_DEL);
-        QueryBuilder site = QueryBuilders.termQuery("siteName", siteName);
+        QueryBuilder site = QueryBuilders.termQuery("domain", domain);
         QueryBuilder nation = QueryBuilders.termQuery("nationCode", nationCode);
         BoolQueryBuilder filter = QueryBuilders.boolQuery();
         filter.must(articleNationDel).must(site).must(nation);
@@ -120,6 +122,20 @@ public class ESClient {
             }
         }
 
+        List<ArticleSearch> articles = new ArrayList<>();
+        List<SearchResult.Hit<ArticleSearch, Void>> hits = result.getHits(ArticleSearch.class);
+        for (SearchResult.Hit<ArticleSearch, Void> hit : hits) {
+            ArticleSearch article = hit.source;
+            articles.add(article);
+        }
+        ArticleSearchVo vo = new ArticleSearchVo();
+        vo.setArticles(articles);
+        vo.setTotal(result.getTotal());
+
+        return vo;
+
+
+
         /*
         List<SearchResult.Hit<Article, Void>> hits = result.getHits(Article.class);
         for (SearchResult.Hit<Article, Void> hit : hits) {
@@ -141,7 +157,6 @@ public class ESClient {
         */
 
         //System.out.println("total page:" + (result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1));
-        return result.getSourceAsObjectList(Article.class, false);
-
+//        return result.getSourceAsObjectList(ArticleSearch.class, false);
     }
 }

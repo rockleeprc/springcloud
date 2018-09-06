@@ -10,15 +10,12 @@ import io.searchbox.client.config.HttpClientConfig;
 import io.searchbox.core.*;
 import io.searchbox.indices.CreateIndex;
 import io.searchbox.indices.DeleteIndex;
-import io.searchbox.indices.mapping.GetMapping;
 import io.searchbox.indices.mapping.PutMapping;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.MoreLikeThisQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
@@ -27,10 +24,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 public class JestTest {
@@ -38,6 +36,69 @@ public class JestTest {
 
     private String url = "http://47.106.214.111:9200";
 //    private String url = "http://192.168.56.11:9200";
+
+
+    @Test
+    public void date4() throws ParseException {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = formatter.parse("2018-09-3 14:53:05");
+
+
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDate oldDate = LocalDateTime.ofInstant(instant, zone).toLocalDate();
+
+        LocalDate today = LocalDate.now();
+        System.out.println("Today：" + today);
+
+        System.out.println("OldDate：" + oldDate);
+
+        Period p = Period.between(oldDate, today);
+        System.out.printf("目标日期距离今天的时间差：%d 年 %d 个月 %d 天\n", p.getYears(), p.getMonths(), p.getDays());
+
+        Duration duration = java.time.Duration.between(LocalDateTime.ofInstant(instant, zone), LocalDateTime.now());
+
+        System.out.println("hours: "+duration.toHours());
+        System.out.println("hours: "+duration.toMinutes());
+
+    }
+
+    @Test
+    public void date3() throws ParseException {
+        java.util.Date date = new java.util.Date();
+        Instant instant = date.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zone);
+
+    }
+
+    @Test
+    public void date2() {
+        LocalDate today = LocalDate.now();
+        System.out.println("Today：" + today);
+        LocalDate oldDate = LocalDate.parse("2017-07-31 17:16:05", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        System.out.println("OldDate：" + oldDate);
+
+        Period p = Period.between(oldDate, today);
+        System.out.printf("目标日期距离今天的时间差：%d 年 %d 个月 %d 天\n", p.getYears(), p.getMonths(), p.getDays());
+    }
+
+
+    @Test
+    public void date1() throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = formatter.parse("2018-08-31 17:16:05");
+
+        Calendar c1 = Calendar.getInstance();   //当前日期
+        Calendar c2 = Calendar.getInstance();
+        c2.setTime(date);   //设置为另一个时间
+
+        //这里只是简单的对两个年份数字进行相减，而没有考虑月份的情况
+        System.out.println("year：" + (c1.get(Calendar.YEAR) - c2.get(Calendar.YEAR)));
+        System.out.println("month：" + (c1.get(Calendar.MONTH) - c2.get(Calendar.MONTH)));
+        System.out.println("HOUR: " + (c1.get(Calendar.HOUR) - c2.get(Calendar.HOUR)));
+    }
 
     /**
      * 创建JestClient
@@ -229,19 +290,20 @@ public class JestTest {
         BulkResult br = client.execute(bulkBuilder.build());
         System.out.println(br.isSucceeded());
     }
+
     @Test
     public void batchInsertContent() throws IOException {
         List<Content> list = Arrays.asList(
-                new Content(1, "我是","中国人","关闭自动添加字段","关闭后索引数据中如果有多余字段不会修改mapping,默认true",new Date(), "X"),
-                new Content(2, "我是","东北人","禁用_source字段","_source字段在生成索引过程中存储发送到elasticsear",new Date(), "X"),
-                new Content(3, "我是","上海人","启用时间戳并设置","时间戳记录文档索引时间",new Date(), "Y"),
-                new Content(4, "我是","上海人","定义文档的生命周期,周期结束后文档会自动删除","指定将name字段作为路由",new Date(), "X"),
-                new Content(5, "我是","非洲人","且每个文档必须指定name字","编入索引供搜索、no:不编入索引",new Date(), "Y"),
-                new Content(6, "我是","上海人","启用时间戳并设置","天安门",new Date(), "X")
+                new Content(1, "我是", "中国人", "关闭自动添加字段", "关闭后索引数据中如果有多余字段不会修改mapping,默认true", new Date(), "X"),
+                new Content(2, "我是", "东北人", "禁用_source字段", "_source字段在生成索引过程中存储发送到elasticsear", new Date(), "X"),
+                new Content(3, "我是", "上海人", "启用时间戳并设置", "时间戳记录文档索引时间", new Date(), "Y"),
+                new Content(4, "我是", "上海人", "定义文档的生命周期,周期结束后文档会自动删除", "指定将name字段作为路由", new Date(), "X"),
+                new Content(5, "我是", "非洲人", "且每个文档必须指定name字", "编入索引供搜索、no:不编入索引", new Date(), "Y"),
+                new Content(6, "我是", "上海人", "启用时间戳并设置", "天安门", new Date(), "X")
         );
 
 
-                Bulk.Builder bulkBuilder = new Bulk.Builder();
+        Bulk.Builder bulkBuilder = new Bulk.Builder();
         //循环构造批量数据
         for (Content u : list) {
             Index indexDoc = new Index.Builder(u).index("content").type("content").build();
@@ -289,7 +351,7 @@ public class JestTest {
     }
 
     @Test
-    public void deleteType(){
+    public void deleteType() {
 
     }
 

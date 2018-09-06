@@ -1,11 +1,15 @@
 package com.example;
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPObject;
 import com.example.es.ESClient;
-import com.example.pojo.Article;
+import com.example.pojo.ArticleSearch;
+import com.example.pojo.ArticleSearchVo;
 import com.example.pojo.Content;
 import com.example.pojo.User;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import com.google.gson.JsonObject;
 import io.searchbox.client.JestClient;
 import io.searchbox.core.*;
 import io.searchbox.core.search.sort.Sort;
@@ -30,7 +34,7 @@ public class ArticleTest {
     private static final int DEL = 1;
     private static final int NOT_DEL = 2;
 
-    private static final String indexName = "art";
+    private static final String indexName = "article";
     private static final String typeName = "article";
 
 
@@ -42,8 +46,9 @@ public class ArticleTest {
 //        List<Article> list = ESClient.search("元首", "zh", "sohu", 10, 10);
 //        List<Article> list = ESClient.search("习近平", "zh", "sohu", 10, 10);
 //        List<Article> list = ESClient.search("周恩来", "zh", "sohu", 10, 10);
-        List<Article> list = ESClient.search("吃粽子", "zh", "sohu", 10, 10);
-        System.out.println(Arrays.toString(list.toArray()));
+        ArticleSearchVo vo = ESClient.search("B", "cn", "http://127.0.0.1:8080", 1, 10);
+//        List<ArticleSearch> list = search("彩虹", "cn", "http://127.0.0.1:8080", 1, 10);
+        System.out.println(JSONObject.toJSON(vo));
     }
 
     @Test
@@ -86,14 +91,14 @@ public class ArticleTest {
 
         public void run() {
             long start = System.currentTimeMillis();
-            List<Article> list = null;
+            ArticleSearchVo vo  = null;
             try {
-                list = ESClient.search(keyword, nationCode, siteName, pageNum, pageSize);
+                vo = ESClient.search(keyword, nationCode, siteName, pageNum, pageSize);
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
                 long cast = (System.currentTimeMillis() - start) / 1000;
-                System.err.println("index=" + index + " cast=" + cast + " list.size=" + (list == null ? "time out" : list.size()));
+//                System.err.println("index=" + index + " cast=" + cast + " list.size=" + (list == null ? "time out" : list.size()));
             }
         }
     }
@@ -102,7 +107,7 @@ public class ArticleTest {
     @Test
     public void testSearch() throws IOException {
         long start = System.currentTimeMillis();
-        List<Article> list = search("中国", "zh", "sohu", 10, 10);
+        List<ArticleSearch> list = search("中国", "zh", "sohu", 10, 10);
         System.out.println((System.currentTimeMillis() - start));
         System.out.println((System.currentTimeMillis() - start) / 1000);
         System.out.println(list.size());
@@ -111,19 +116,39 @@ public class ArticleTest {
 //        }
     }
 
+    @Test
+    public void testSearchDoamin() throws IOException {
+        String domain = "http://127.0.0.1:8080";
+        QueryBuilder site = QueryBuilders.termQuery("domain", domain);
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
+        searchSourceBuilder.query(site);
+        String query = searchSourceBuilder.toString();
+
+        Search search = new Search.Builder(query).addIndex(indexName).addType(typeName).build();
+        JestClient client = ESClient.getClient();
+        SearchResult result;
+        result = client.execute(search);
+        System.out.println(result.getTotal());
+
+        List<ArticleSearch> list = result.getSourceAsObjectList(ArticleSearch.class, false);
+
+        System.out.println(Arrays.toString(list.toArray()));
+    }
+
+
     /**
      * 标题/内容检索
      *
      * @param keyword    检索关键字
      * @param nationCode 国家代码
-     * @param siteName   站点名称
+     * @param domain     站点名称
      * @param pageNum    页码
      * @param pageSize   页记录数
      * @return
      * @throws IOException
      */
-    public List<Article> search(String keyword, String nationCode, String siteName, int pageNum, int pageSize) throws IOException {
-        if (StringUtils.isEmpty(keyword) || StringUtils.isEmpty(nationCode) || StringUtils.isEmpty(siteName)) {
+    public static List<ArticleSearch> search(String keyword, String nationCode, String domain, int pageNum, int pageSize) throws IOException {
+        if (StringUtils.isEmpty(keyword) || StringUtils.isEmpty(nationCode) || StringUtils.isEmpty(domain)) {
             return Lists.newArrayList();
         }
         pageNum = pageNum <= 0 ? 1 : pageNum;
@@ -138,10 +163,10 @@ public class ArticleTest {
 
         // 过滤条件，文章删除状态 and 站点 and 国家检索
         QueryBuilder articleNationDel = QueryBuilders.termQuery("articleNationDel", NOT_DEL);
-        QueryBuilder site = QueryBuilders.termQuery("siteName", siteName);
+        QueryBuilder site = QueryBuilders.termQuery("domain", domain);
         QueryBuilder nation = QueryBuilders.termQuery("nationCode", nationCode);
         BoolQueryBuilder filter = QueryBuilders.boolQuery();
-        filter.must(articleNationDel).must(site).must(nation);
+        filter.must(articleNationDel).must(nation).must(site);
 
         // 检索数据后过滤
         BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();
@@ -196,9 +221,9 @@ public class ArticleTest {
             System.out.println(hit.source);
         }
         */
-
+        System.out.println(result.getTotal());
         System.out.println("total page:" + (result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1));
-        return result.getSourceAsObjectList(Article.class, false);
+        return result.getSourceAsObjectList(ArticleSearch.class, false);
 
     }
 
@@ -234,11 +259,11 @@ public class ArticleTest {
         System.out.println(result.getTotal());
         System.out.println(result.getTotal() % pageSize == 0 ? result.getTotal() / pageSize : result.getTotal() / pageSize + 1);
 
-        List<SearchResult.Hit<Article, Void>> hits = result.getHits(Article.class);
+        List<SearchResult.Hit<ArticleSearch, Void>> hits = result.getHits(ArticleSearch.class);
         System.out.println("Size:" + hits.size());
 
-        for (SearchResult.Hit<Article, Void> hit : hits) {
-            Article article = hit.source;
+        for (SearchResult.Hit<ArticleSearch, Void> hit : hits) {
+            ArticleSearch article = hit.source;
             System.out.println(article.toString());
         }
     }
@@ -259,10 +284,10 @@ public class ArticleTest {
         int[] dels = new int[]{DEL, NOT_DEL};
 
         Random random = new Random(System.currentTimeMillis());
-        List<Article> articles = Lists.newArrayList();
+        List<ArticleSearch> articles = Lists.newArrayList();
         int loop = 10000 * 100;
         for (int i = 0; i <= loop; i++) {
-            Article article = new Article(id.incrementAndGet(),
+            ArticleSearch article = new ArticleSearch(id.incrementAndGet(),
                     dels[random.nextInt(dels.length)],
                     new Date(),
                     names[random.nextInt(names.length)],
@@ -286,7 +311,7 @@ public class ArticleTest {
 
         Bulk.Builder bulkBuilder = new Bulk.Builder();
         for (int i = 0; i < articles.size(); i++) {
-            Article article = articles.get(i);
+            ArticleSearch article = articles.get(i);
             Index index = new Index.Builder(article).index(indexName).type(typeName).build();
             bulkBuilder.addAction(index);
             if (i == 0)
@@ -374,20 +399,20 @@ public class ArticleTest {
     public void batchInsert() throws IOException {
         AtomicInteger id = new AtomicInteger(0);
         AtomicInteger artileId = new AtomicInteger(0);
-        List<Article> articles = Arrays.asList(
-                new Article(id.incrementAndGet(), DEL, new Date(), "名称1", "内容1", artileId.incrementAndGet(), 1, "zh-cn", 1, "sohu", 1, "分类名称", DEL, 1, "分区名称", DEL),
-                new Article(id.incrementAndGet(), NOT_DEL, new Date(), "名称2", "内容2", artileId.incrementAndGet(), 1, "ah-cn", 1, "sohu", 1, "分类名称", NOT_DEL, 1, "分区名称", NOT_DEL),
-                new Article(id.incrementAndGet(), DEL, new Date(), "名称3", "内容3", artileId.incrementAndGet(), 1, "zh-cn", 1, "sina", 1, "分类名称", DEL, 1, "分区名称", DEL),
-                new Article(id.incrementAndGet(), DEL, new Date(), "名称4", "内容4", artileId.incrementAndGet(), 1, "bh-cn", 1, "sina", 1, "分类名称", DEL, 1, "分区名称", NOT_DEL),
-                new Article(id.incrementAndGet(), DEL, new Date(), "名称5", "内容5", artileId.incrementAndGet(), 1, "zh", 1, "baidu", 1, "分类名称", DEL, 1, "分区名称", DEL),
-                new Article(id.incrementAndGet(), NOT_DEL, new Date(), "名称6", "内容6", artileId.incrementAndGet(), 1, "zh", 1, "baidu", 1, "分类名称", DEL, 1, "分区名称", DEL),
-                new Article(id.incrementAndGet(), NOT_DEL, new Date(), "名称7", "内容7", artileId.incrementAndGet(), 1, "zh", 1, "souhu", 1, "分类名称", NOT_DEL, 1, "分区名称", DEL)
+        List<ArticleSearch> articles = Arrays.asList(
+                new ArticleSearch(id.incrementAndGet(), DEL, new Date(), "名称1", "内容1", artileId.incrementAndGet(), 1, "zh-cn", 1, "sohu", 1, "分类名称", DEL, 1, "分区名称", DEL),
+                new ArticleSearch(id.incrementAndGet(), NOT_DEL, new Date(), "名称2", "内容2", artileId.incrementAndGet(), 1, "ah-cn", 1, "sohu", 1, "分类名称", NOT_DEL, 1, "分区名称", NOT_DEL),
+                new ArticleSearch(id.incrementAndGet(), DEL, new Date(), "名称3", "内容3", artileId.incrementAndGet(), 1, "zh-cn", 1, "sina", 1, "分类名称", DEL, 1, "分区名称", DEL),
+                new ArticleSearch(id.incrementAndGet(), DEL, new Date(), "名称4", "内容4", artileId.incrementAndGet(), 1, "bh-cn", 1, "sina", 1, "分类名称", DEL, 1, "分区名称", NOT_DEL),
+                new ArticleSearch(id.incrementAndGet(), DEL, new Date(), "名称5", "内容5", artileId.incrementAndGet(), 1, "zh", 1, "baidu", 1, "分类名称", DEL, 1, "分区名称", DEL),
+                new ArticleSearch(id.incrementAndGet(), NOT_DEL, new Date(), "名称6", "内容6", artileId.incrementAndGet(), 1, "zh", 1, "baidu", 1, "分类名称", DEL, 1, "分区名称", DEL),
+                new ArticleSearch(id.incrementAndGet(), NOT_DEL, new Date(), "名称7", "内容7", artileId.incrementAndGet(), 1, "zh", 1, "souhu", 1, "分类名称", NOT_DEL, 1, "分区名称", DEL)
 
         );
 
 
         Bulk.Builder bulkBuilder = new Bulk.Builder();
-        for (Article article : articles) {
+        for (ArticleSearch article : articles) {
             Index index = new Index.Builder(article).index(indexName).type(typeName).build();
             bulkBuilder.addAction(index);
         }

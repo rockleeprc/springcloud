@@ -5,7 +5,7 @@ import io.searchbox.annotations.JestId;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Article implements Serializable {
+public class ArticleSearch implements Serializable {
 
 
     @JestId
@@ -21,7 +21,7 @@ public class Article implements Serializable {
     private String nationCode;
 
     private Integer siteId;
-    private String siteName;
+    private String domain;
 
     private Integer categoryId;
     private String categoryName;
@@ -31,12 +31,13 @@ public class Article implements Serializable {
     private String sectionsName;
     private Integer sectionsDel;
 
-    private Integer total;
+    private Date articleNationCreateTime;
+    private String timeDifference;
 
-//    public Article() {
-//    }
+    public ArticleSearch() {
+    }
 
-    public Article(Integer articleNationId, Integer articleNationDel, Date articleNationUpdateTime, String articleNationName, String articleNationContent, Integer articleId, Integer nationId, String nationCode, Integer siteId, String siteName, Integer categoryId, String categoryName, Integer categoryDel, Integer sectionsId, String sectionsName, Integer sectionsDel) {
+    public ArticleSearch(Integer articleNationId, Integer articleNationDel, Date articleNationUpdateTime, String articleNationName, String articleNationContent, Integer articleId, Integer nationId, String nationCode, Integer siteId, String domain, Integer categoryId, String categoryName, Integer categoryDel, Integer sectionsId, String sectionsName, Integer sectionsDel) {
         this.articleNationId = articleNationId;
         this.articleNationDel = articleNationDel;
         this.articleNationUpdateTime = articleNationUpdateTime;
@@ -46,13 +47,29 @@ public class Article implements Serializable {
         this.nationId = nationId;
         this.nationCode = nationCode;
         this.siteId = siteId;
-        this.siteName = siteName;
+        this.domain = domain;
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.categoryDel = categoryDel;
         this.sectionsId = sectionsId;
         this.sectionsName = sectionsName;
         this.sectionsDel = sectionsDel;
+    }
+
+    public Date getArticleNationCreateTime() {
+        return articleNationCreateTime;
+    }
+
+    public void setArticleNationCreateTime(Date articleNationCreateTime) {
+        this.articleNationCreateTime = articleNationCreateTime;
+    }
+
+    public String getTimeDifference() {
+        return timeDifference;
+    }
+
+    public void setTimeDifference(String timeDifference) {
+        this.timeDifference = timeDifference;
     }
 
     @Override
@@ -67,7 +84,7 @@ public class Article implements Serializable {
                 ", nationId=" + nationId +
                 ", nationCode='" + nationCode + '\'' +
                 ", siteId=" + siteId +
-                ", siteName='" + siteName + '\'' +
+                ", domain='" + domain + '\'' +
                 ", categoryId=" + categoryId +
                 ", categoryName='" + categoryName + '\'' +
                 ", categoryDel=" + categoryDel +
@@ -78,13 +95,7 @@ public class Article implements Serializable {
     }
 
 
-    public Integer getTotal() {
-        return total;
-    }
 
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
 
     public Integer getArticleNationId() {
         return articleNationId;
@@ -158,12 +169,12 @@ public class Article implements Serializable {
         this.siteId = siteId;
     }
 
-    public String getSiteName() {
-        return siteName;
+    public String getDomain() {
+        return domain;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 
     public Integer getCategoryId() {

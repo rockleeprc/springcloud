@@ -26,6 +26,10 @@
           "type": "date",
           "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
         },
+        "articleNationCreateTime": {
+          "type": "date",
+          "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"
+        },
         "articleNationName": {
           "type": "text",
           "analyzer": "ik_max_word",
@@ -45,8 +49,9 @@
         "siteId": {
           "type": "integer"
         },
-        "siteName": {
-          "type": "keyword"
+        "domain": {
+          "type": "keyword",
+          "index": "not_analyzed"
         },
         "categoryId": {
           "type": "integer"
