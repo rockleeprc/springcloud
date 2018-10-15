@@ -3,8 +3,8 @@ server:
   
 mybatis:
   #config-location: classpath:mybatis/mybatis.cfg.xml
-  type-aliases-package: com.foo.entities
-  mapper-locations:
+  typeAliasesPackage: com.foo.entities
+  mapperLocations:
     - classpath:mybatis/mapper/**/*.xml
   configuration:
       mapUnderscoreToCamelCase: true
