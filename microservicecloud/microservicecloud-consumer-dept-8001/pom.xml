@@ -14,13 +14,15 @@
     <name>microservicecloud-consumer-dept-8001</name>
     <url>http://www.example.com</url>
 
-
     <dependencies>
+        <!-- module -->
         <dependency>
             <groupId>com.foo</groupId>
             <artifactId>microservicecloud-api</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <!-- springboot starter-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -33,6 +35,5 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
         </dependency>
-
     </dependencies>
 </project>
