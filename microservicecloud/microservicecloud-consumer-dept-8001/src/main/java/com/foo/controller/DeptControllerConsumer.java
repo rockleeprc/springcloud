@@ -38,5 +38,11 @@ public class DeptControllerConsumer
 		return restTemplate.getForObject(REST_URL_PREFIX + "/dept/list", List.class);
 	}
 
+	@RequestMapping(value = "/dept/discovery")
+	public Object discovery()
+	{
+		return restTemplate.getForObject("http://localhost:9001/dept/discovery", Object.class);
+	}
+
 
 }

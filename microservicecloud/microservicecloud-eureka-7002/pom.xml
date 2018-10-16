@@ -9,41 +9,33 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>microservicecloud-consumer-dept-8001</artifactId>
+    <artifactId>microservicecloud-eureka-7002</artifactId>
 
-    <name>microservicecloud-consumer-dept-8001</name>
+    <name>microservicecloud-eureka-7002</name>
     <url>http://www.example.com</url>
 
-    <dependencies>
-        <!-- module -->
-        <dependency>
-            <groupId>com.foo</groupId>
-            <artifactId>microservicecloud-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
-        <!-- springcloud starter-->
+    <dependencies>
+        <!-- springcloud starter -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
         </dependency>
 
         <!-- springboot starter-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-devtools</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>springloaded</artifactId>
         </dependency>
+
+        <!-- other starter -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 </project>
