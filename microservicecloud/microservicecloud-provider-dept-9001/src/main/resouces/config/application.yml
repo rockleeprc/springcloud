@@ -2,7 +2,7 @@ server:
   port: 9001
   
 mybatis:
-  #config-location: classpath:mybatis/mybatis.cfg.xml
+  #config-location: classpath:mybatis/mybatis.cfg.xml //configuration配置和mybatis配置文件冲突，二选一
   typeAliasesPackage: com.foo.entities
   mapperLocations:
     - classpath:mybatis/mapper/**/*.xml
@@ -17,11 +17,11 @@ eureka:
       #defaultZone: http://localhost:7001/eureka
       defaultZone: http://peer1:7001/eureka/,http://peer2:7002/eureka/,http://peer3:7003/eureka/
   instance:
-    instance-id: microservicecloud-dept-8001
+    instance-id: microservicecloud-dept-${server.port}
     prefer-ip-address: true     #访问路径可以显示IP地址
 # eureka服务发现
 info:
-  app.name: microservicecloud-provider-dept
+  app.name: microservicecloud-dept-${server.port}
   company.name: www.foo.com
   build.artifactId: $project.artifactId$
   build.version: $project.version$

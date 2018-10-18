@@ -1,9 +1,9 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
-    name: microservicecloud-consumer-dept
+    name: microservicecloud-consumer-dept-feign
 
 eureka:
   client:

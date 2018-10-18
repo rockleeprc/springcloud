@@ -12,11 +12,16 @@
     <artifactId>microservicecloud-api</artifactId>
 
     <name>microservicecloud-api</name>
-    <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
-
     <dependencies>
+        <!-- springcloud starter -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+
+        <!-- other -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

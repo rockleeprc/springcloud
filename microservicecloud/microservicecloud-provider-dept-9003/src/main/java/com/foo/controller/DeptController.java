@@ -3,7 +3,7 @@ package com.foo.controller;
 import java.util.List;
 
 import com.foo.entities.Dept;
-import com.foo.service.DeptService;
+import com.foo.service.DeptClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/dept")
 public class DeptController {
     @Autowired
-    private DeptService service;
+    private DeptClientService service;
     @Autowired
     private DiscoveryClient client;
 

@@ -1,7 +1,8 @@
 package com.foo.service;
 
-import java.util.List;
 import com.foo.entities.Dept;
+
+import java.util.List;
 
 
 public interface DeptService
