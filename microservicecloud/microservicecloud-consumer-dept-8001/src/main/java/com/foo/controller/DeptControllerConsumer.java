@@ -15,7 +15,8 @@ import org.springframework.web.client.RestTemplate;
 public class DeptControllerConsumer
 {
 
-	private static final String REST_URL_PREFIX = "http://localhost:9001";
+//	private static final String REST_URL_PREFIX = "http://localhost:9001"; //直接访问服务方
+	private static final String REST_URL_PREFIX = "http://MICROSERVICECLOUD-DEPT";//访问注册中心
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -23,13 +24,15 @@ public class DeptControllerConsumer
 	@RequestMapping(value = "/dept/add")
 	public boolean add(Dept dept)
 	{
-		return restTemplate.postForObject(REST_URL_PREFIX + "/dept/add", dept, Boolean.class);
+//		return restTemplate.postForObject(REST_URL_PREFIX + "/dept/add", dept, Boolean.class);
+		return restTemplate.postForEntity(REST_URL_PREFIX + "/dept/add",dept,Boolean.class).getBody();
 	}
 
 	@RequestMapping(value = "/dept/get/{id}")
 	public Dept get(@PathVariable("id") Long id)
 	{
-		return restTemplate.getForObject(REST_URL_PREFIX + "/dept/get/" + id, Dept.class);
+//		return restTemplate.getForObject(REST_URL_PREFIX + "/dept/get/" + id, Dept.class);
+		return restTemplate.getForEntity(REST_URL_PREFIX + "/dept/get/{1}",Dept.class,id ).getBody();
 	}
 
 	@RequestMapping(value = "/dept/list")
@@ -41,7 +44,7 @@ public class DeptControllerConsumer
 	@RequestMapping(value = "/dept/discovery")
 	public Object discovery()
 	{
-		return restTemplate.getForObject("http://localhost:9001/dept/discovery", Object.class);
+		return restTemplate.getForObject(REST_URL_PREFIX+"/dept/discovery", Object.class);
 	}
 
 

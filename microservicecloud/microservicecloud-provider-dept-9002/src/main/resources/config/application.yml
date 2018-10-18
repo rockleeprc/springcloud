@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9002
   
 mybatis:
   #config-location: classpath:mybatis/mybatis.cfg.xml
@@ -9,7 +9,6 @@ mybatis:
   configuration:
     mapUnderscoreToCamelCase: true
     defaultStatementTimeout: 30
-    cache-enabled: true
 
 eureka:
   client: #客户端注册进eureka服务列表内
@@ -17,11 +16,11 @@ eureka:
       #defaultZone: http://localhost:7001/eureka
       defaultZone: http://peer1:7001/eureka/,http://peer2:7002/eureka/,http://peer3:7003/eureka/
   instance:
-    instance-id: microservicecloud-dept-8001
+    instance-id: microservicecloud-dept-8002
     prefer-ip-address: true     #访问路径可以显示IP地址
 # eureka服务发现
 info:
-  app.name: microservicecloud-provider-dept
+  app.name: myfirst-microservicecloud
   company.name: www.foo.com
   build.artifactId: $project.artifactId$
   build.version: $project.version$
@@ -30,7 +29,7 @@ spring:
   application:
     name: microservicecloud-dept
   datasource:
-    url: jdbc:mysql://47.106.214.111:3306/cloudDB01?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.106.214.111:3306/cloudDB02?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: zyb
     password: zyb123456
     driverClassName: com.mysql.jdbc.Driver

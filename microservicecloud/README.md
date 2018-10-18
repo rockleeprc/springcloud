@@ -2,7 +2,7 @@
 ## 端口
 provider 9XXX
 consumer 8xxx
-eureka 70xx
+eureka 7xxx
 
 
 ## eureka
@@ -31,3 +31,13 @@ eureka.instance.lease-expiration-duration-in-seconds
 * 集群配置时不用配置
 register-with-eureka: false
 fetch-registry: false
+
+* 提供方向eureka注册多个实例时，名称要一样
+spring:
+  application:
+    name: microservicecloud-dept
+
+* @RibbonClient自定义负载均衡规则
+
+zookeeper CP
+uereka AP
