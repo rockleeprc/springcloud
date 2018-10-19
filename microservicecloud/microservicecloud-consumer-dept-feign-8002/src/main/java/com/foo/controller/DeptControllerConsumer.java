@@ -29,13 +29,11 @@ public class DeptControllerConsumer {
 
     @RequestMapping(value = "/dept/get/{id}")
     public Dept get(@PathVariable("id") Long id) {
-        System.out.println("++++++++++++++" + deptClientService.getClass());
         return deptClientService.get(id);
     }
 
     @RequestMapping(value = "/dept/list")
     public List<Dept> list() {
-        System.out.println("--------------" + deptClientService);
         return deptClientService.list();
     }
 
