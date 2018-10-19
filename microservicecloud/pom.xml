@@ -20,6 +20,7 @@
         <module>microservicecloud-eureka-7003</module>
         <module>microservicecloud-provider-dept-9003</module>
         <module>microservicecloud-consumer-dept-feign-8002</module>
+        <module>microservicecloud-consumer-hystrix-8003</module>
     </modules>
 
     <properties>
