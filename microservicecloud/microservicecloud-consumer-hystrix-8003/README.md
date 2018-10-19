@@ -1,0 +1,1 @@
+* hystrixdashboard只能监控hystrix接口
