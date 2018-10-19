@@ -17,6 +17,10 @@ public class DeptControllerConsumer {
     @Autowired
     private DeptClientService deptClientService;
 
+    @RequestMapping("/dept/zero")
+    public boolean zero() {
+        return deptClientService.zero();
+    }
 
     @RequestMapping(value = "/dept/add")
     public boolean add(Dept dept) {
@@ -25,12 +29,13 @@ public class DeptControllerConsumer {
 
     @RequestMapping(value = "/dept/get/{id}")
     public Dept get(@PathVariable("id") Long id) {
+        System.out.println("++++++++++++++" + deptClientService.getClass());
         return deptClientService.get(id);
     }
 
     @RequestMapping(value = "/dept/list")
     public List<Dept> list() {
-        System.out.println("--------------"+deptClientService);
+        System.out.println("--------------" + deptClientService);
         return deptClientService.list();
     }
 

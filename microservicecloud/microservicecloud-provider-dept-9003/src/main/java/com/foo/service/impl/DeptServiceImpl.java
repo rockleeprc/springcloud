@@ -5,12 +5,13 @@ import java.util.List;
 import com.foo.dao.DeptDao;
 import com.foo.entities.Dept;
 import com.foo.service.DeptClientService;
+import com.foo.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 @Service
-public class DeptServiceImpl implements DeptClientService
+public class DeptServiceImpl implements DeptService
 {
 	@Autowired
 	private DeptDao dao;

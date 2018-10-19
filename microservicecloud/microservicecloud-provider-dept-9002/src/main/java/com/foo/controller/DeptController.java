@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.foo.entities.Dept;
 import com.foo.service.DeptClientService;
+import com.foo.service.DeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/dept")
 public class DeptController {
     @Autowired
-    private DeptClientService service;
+    private DeptService service;
     @Autowired
     private DiscoveryClient client;
 
