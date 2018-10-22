@@ -1,0 +1,19 @@
+server:
+  port: 7001
+
+spring:
+  application:
+    name: eureka-clouster
+
+eureka:
+  instance:
+    hostname: peer1
+  client:
+    service-url:
+      defaultZone: http://peer2:7002/eureka/
+
+info:
+  app.name: eureka-${server.port}
+  company.name: www.foo.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
