@@ -6,6 +6,8 @@ spring:
     name: eureka-clouster
 
 eureka:
+  server:
+    enableSelfPreservation: false
   instance:
     hostname: peer1
   client:
