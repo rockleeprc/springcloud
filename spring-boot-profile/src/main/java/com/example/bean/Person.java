@@ -1,8 +1,10 @@
 package com.example.bean;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -16,37 +18,36 @@ import java.util.Map;
  */
 @Component
 @ConfigurationProperties(prefix = "person")
+@PropertySource(value = {"classpath:person.yml"})
 public class Person {
-
-    private String lastName;
+    private String name;
     private Integer age;
     private Boolean boss;
     private Date birth;
 
     private Map<String, Object> maps;
-    private List<Object> lists;
-    private Dog dog;
-
+    private List<Car> cars;
+    private String[] pets;
 
     @Override
     public String toString() {
         return "Person{" +
-                "lastName='" + lastName + '\'' +
+                "name='" + name + '\'' +
                 ", age=" + age +
                 ", boss=" + boss +
                 ", birth=" + birth +
                 ", maps=" + maps +
-                ", lists=" + lists +
-                ", dog=" + dog +
+                ", cars=" + cars +
+                ", pets=" + Arrays.toString(pets) +
                 '}';
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getAge() {
@@ -81,19 +82,19 @@ public class Person {
         this.maps = maps;
     }
 
-    public List<Object> getLists() {
-        return lists;
+    public List<Car> getCars() {
+        return cars;
     }
 
-    public void setLists(List<Object> lists) {
-        this.lists = lists;
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 
-    public Dog getDog() {
-        return dog;
+    public String[] getPets() {
+        return pets;
     }
 
-    public void setDog(Dog dog) {
-        this.dog = dog;
+    public void setPets(String[] pets) {
+        this.pets = pets;
     }
 }
