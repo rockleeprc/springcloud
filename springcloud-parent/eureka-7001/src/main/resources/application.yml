@@ -7,7 +7,7 @@ spring:
 
 eureka:
   server:
-    enableSelfPreservation: false
+    enableSelfPreservation: false # 关闭安全模式
   instance:
     hostname: peer1
   client:
