@@ -1,0 +1,15 @@
+server:
+  port: 8001
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+info: # eureka服务发现
+  app.name: ${spring.application.name}:${server.port}
+  company.name: www.foo.com
