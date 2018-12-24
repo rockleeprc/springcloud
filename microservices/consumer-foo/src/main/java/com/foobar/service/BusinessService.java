@@ -1,12 +1,12 @@
-package com.foobar.facade;
+package com.foobar.service;
 
-import com.foobar.client.FooClient;
+import com.foobar.client.foo.FooClient;
 import com.foobar.common.code.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FooFacade {
+public class BusinessService {
 
     @Autowired
     private FooClient fooClient;

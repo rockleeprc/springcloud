@@ -2,7 +2,7 @@ package com.foobar.controllers;
 
 
 import com.foobar.common.code.Result;
-import com.foobar.service.api.FooApi;
+import com.foobar.service.foo.FooApi;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

@@ -1,6 +1,6 @@
-package com.foobar.client.fallback;
+package com.foobar.client.foo.fallback;
 
-import com.foobar.client.FooClient;
+import com.foobar.client.foo.FooClient;
 import com.foobar.common.code.Result;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;

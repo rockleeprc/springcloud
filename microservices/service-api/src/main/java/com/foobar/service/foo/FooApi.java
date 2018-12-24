@@ -1,10 +1,8 @@
-package com.foobar.service.api;
+package com.foobar.service.foo;
 
 import com.foobar.common.code.Result;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Date;
 
 @RequestMapping("/foo")
 public interface FooApi {
