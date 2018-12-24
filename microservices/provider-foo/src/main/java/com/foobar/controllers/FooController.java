@@ -1,22 +1,33 @@
 package com.foobar.controllers;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.foobar.common.code.Result;
+import com.foobar.service.api.FooApi;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path="/foo")
-public class FooController {
+public class FooController implements FooApi {
 
 
-    @RequestMapping(path="/info")
-    public String info(){
-        return this.getClass().toString()+"\tfoo";
+    @Override
+    public Result<String> info() {
+        return Result.ok(this.getClass().toString() + "\tfoo");
     }
 
-    @RequestMapping(path="/div")
-    public String div(){
-        int i=1/0;
-        return null;
+    @Override
+    public Result<String> foo() {
+        return Result.ok(Thread.currentThread().getName());
     }
+
+    @Override
+    public Result<String> div() {
+        int i = 1 / 0;
+        return Result.ok("AA");
+    }
+
+    @Override
+    public Result<String> params(String name) {
+        return Result.ok(name);
+    }
+
 }

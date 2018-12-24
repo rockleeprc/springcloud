@@ -14,6 +14,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.foobar</groupId>
+            <artifactId>service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
