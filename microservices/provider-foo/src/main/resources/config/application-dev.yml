@@ -10,9 +10,9 @@ logging:
 
 spring:
   mvc:
-    date-format: yyyy-MM-dd HH:mm:ss
+    dateFormat: yyyy-MM-dd HH:mm:ss
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    dateFormat: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   datasource:
     url: jdbc:mysql://47.106.214.111:3306/canteen?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8

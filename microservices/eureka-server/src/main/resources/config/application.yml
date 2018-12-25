@@ -10,4 +10,5 @@ eureka:
     registerWithEureka: false     # 不向注册中心注册自己
     fetchRegistry: false     # 不在本地缓存注册信息
   server:
+    enableSelfPreservation: true #关闭自我保护，不管如何都要剔除心跳检测异常的服务
     waitTimeInMsWhenSyncEmpty: 5 # 注册服务所需要的时间，本地环境打开，加快服务启动
