@@ -2,6 +2,8 @@ server:
   port: 9001
 
 spring:
+ application:
+    name: consumer-foo
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
   jackson:
