@@ -1,4 +1,4 @@
-package com.foobar.controllers;
+package com.foobar.controller;
 
 
 import com.foobar.common.code.Result;

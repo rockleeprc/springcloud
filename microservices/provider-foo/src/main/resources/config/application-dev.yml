@@ -5,9 +5,6 @@ server:
       enabled: true
       directory: D:/data/mircroservices/tomcat/provider-foo
 
-logging:
-  config: classpath:config/logback-spring.xml
-
 spring:
   mvc:
     dateFormat: yyyy-MM-dd HH:mm:ss

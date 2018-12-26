@@ -5,6 +5,9 @@ spring:
     active:
       - dev
 
+logging:
+  config: classpath:config/logback-spring.xml
+
 info:
   app.name: ${spring.application.name}:${server.port}
   company.name: www.foo.com

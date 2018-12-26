@@ -70,10 +70,10 @@
             <appender-ref ref="asyncFileAppender"/>
         </root>
         <logger name="com.yuneke.mapper" level="INFO">
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="asyncFileAppender"/>
         </logger>
         <logger name="org.springframework" level="INFO">
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="asyncFileAppender"/>
         </logger>
     </springProfile>
 </configuration>

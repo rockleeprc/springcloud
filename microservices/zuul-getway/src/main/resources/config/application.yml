@@ -20,6 +20,7 @@ eureka:
 
 zuul:
    prefix:  /api
-info: # eureka服务发现
+
+info:
   app.name: ${spring.application.name}:${server.port}
   company.name: www.foo.com
