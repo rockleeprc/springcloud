@@ -8,9 +8,9 @@
 
     <springProfile name="dev">
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <File>D:/data/microservices/provider_foo.log</File>
+            <File>D:/data/microservices/provider_bar.log</File>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>D:/data/microservices/provider_foo.%d.%i.log</fileNamePattern>
+                <fileNamePattern>D:/data/microservices/provider_bar.%d.%i.log</fileNamePattern>
                 <maxHistory>30</maxHistory>
                 <totalSizeCap>30GB</totalSizeCap>
                 <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -33,9 +33,9 @@
 
     <springProfile name="prod">
         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <File>/data/repast/provider_foo.log</File>
+            <File>/data/repast/provider_bar.log</File>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>/data/repast/provider_foo.%d.%i.log</fileNamePattern>
+                <fileNamePattern>/data/repast/provider_bar.%d.%i.log</fileNamePattern>
                 <maxHistory>30</maxHistory>
                 <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                     <maxFileSize>200MB</maxFileSize>

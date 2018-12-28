@@ -2,13 +2,16 @@ server:
   port: 9001
 
 spring:
- application:
+  application:
     name: consumer-foo
   mvc:
     dateFormat: yyyy-MM-dd HH:mm:ss
   jackson:
     dateFormat: yyyy-MM-dd HH:mm:ss
     timeZone: GMT+8
+
+logging:
+  config: classpath:config/logback-spring.xml
 
 eureka:
   instance:

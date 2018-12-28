@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>provider-foo</artifactId>
+    <artifactId>provider-bar</artifactId>
 
     <dependencies>
         <dependency>

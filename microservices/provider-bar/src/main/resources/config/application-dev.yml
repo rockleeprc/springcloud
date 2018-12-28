@@ -1,0 +1,65 @@
+server:
+  port: 8002
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: D:/data/mircroservices/tomcat/provider-bar
+
+spring:
+  mvc:
+    dateFormat: yyyy-MM-dd HH:mm:ss
+  jackson:
+    dateFormat: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://47.106.214.111:3306/canteen?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: zybslave
+    password:
+    driverClassName: com.mysql.jdbc.Driver
+    druid:
+      type: com.alibaba.druid.pool.DruidDataSource
+      initialCize: 5
+      minIdle: 10
+      maxActive: 20
+      maxWait: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      MaxPoolPreparedStatementPerConnectionSize: 20
+      filters: stat,wall,slf4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      statViewServlet:
+        reset-enable: true
+        loginUsername: admin
+        loginPassword: GeekAdmin
+
+mybatis:
+    typeAliasesPackage: com.example.domain
+    mapperLocations: classpath:mapper/*.xml
+    configuration:
+        mapUnderscoreToCamelCase: true
+        defaultStatementTimeout: 30
+        lazy-loading-enabled: true
+        aggressive-lazy-loading: false
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+eureka:
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ipAddress}:${server.port}
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+

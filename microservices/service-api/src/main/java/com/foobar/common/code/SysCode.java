@@ -10,9 +10,9 @@ public enum SysCode implements Code {
     /* 成功状态码 */
     OK(200, "Success"),
     BADREQUEST(400, " BadRequest"),
-    NOT_FOUND(404 , " Not Found"),
+    NOT_FOUND(404 , " NotFound"),
     UNAUTHORIZED(401, "Unauthorized"),
-    ERR(500, "Server Internal Error"),
+    ERR(500, "ServerInternalError"),
 
     /* 系统错误：4001-4999 */
     SYSTEM_INNER_ERROR(4001, "系统繁忙，请稍后重试"),

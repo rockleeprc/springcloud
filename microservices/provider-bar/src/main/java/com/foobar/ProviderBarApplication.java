@@ -15,12 +15,12 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @EnableFeignClients
 @EnableHystrix
 @MapperScan("com.foobar.mapper")
-public class ProviderFooApplication {
-    private final static Logger logger = LoggerFactory.getLogger(ProviderFooApplication.class);
+public class ProviderBarApplication {
+    private final static Logger logger = LoggerFactory.getLogger(ProviderBarApplication.class);
 
     public static void main(String[] args) {
-        SpringApplication.run(ProviderFooApplication.class, args);
-        logger.info("==========provider foo start");
-        logger.debug("==========provider foo start");
+        SpringApplication.run(ProviderBarApplication.class, args);
+        logger.info("==========provider bar start");
+        logger.debug("==========provider bar start");
     }
 }

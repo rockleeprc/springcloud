@@ -13,6 +13,11 @@ public class FooClientController {
     @Autowired
     private BusinessService fooBusiness;
 
+    @RequestMapping("/invokeFooToBar")
+    public Result<String> invokeFooToBar(){
+        return Result.ok(fooBusiness.invokeFooToBar());
+    }
+
     @RequestMapping("/foo")
     public Result<String> foo() {
         return Result.ok(fooBusiness.foo());

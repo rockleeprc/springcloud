@@ -11,6 +11,11 @@ public class BusinessService {
     @Autowired
     private FooClient fooClient;
 
+    public String invokeFooToBar() {
+        Result<String> result = fooClient.invokeBar();
+        return result.toString();
+    }
+
     public String params(String name) {
         return fooClient.params(name).getData();
     }

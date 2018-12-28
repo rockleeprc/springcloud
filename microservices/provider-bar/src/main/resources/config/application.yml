@@ -1,6 +1,6 @@
 spring:
   application:
-    name: provider-foo
+    name: provider-bar
   profiles:
     active:
       - dev
@@ -14,4 +14,4 @@ feign:
 
 info:
   app.name: ${spring.application.name}:${server.port}
-  company.name: www.foo.com
+  company.name: www.bar.com

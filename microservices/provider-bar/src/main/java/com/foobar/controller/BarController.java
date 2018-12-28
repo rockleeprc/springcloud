@@ -2,30 +2,21 @@ package com.foobar.controller;
 
 
 import com.foobar.common.code.Result;
-import com.foobar.service.BusinessService;
+import com.foobar.service.bar.BarApi;
 import com.foobar.service.foo.FooApi;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class FooController implements FooApi {
+public class BarController implements BarApi {
 
-    @Autowired
-    private BusinessService businessService;
-
-    @Override
-    public Result<String> invokeBar() {
-        return Result.ok(businessService.invokBar());
-    }
 
     @Override
     public Result<String> info() {
-        return Result.ok(this.getClass().toString() + "\tfoo");
+        return Result.ok(this.getClass().toString() + "\tbar");
     }
 
     @Override
-    public Result<String> foo() {
+    public Result<String> bar() {
         return Result.ok(Thread.currentThread().getName());
     }
 
