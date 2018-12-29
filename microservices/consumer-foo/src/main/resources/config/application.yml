@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: consumer-foo
+  profiles:
+    active:
+      - dev
   mvc:
     dateFormat: yyyy-MM-dd HH:mm:ss
   jackson:

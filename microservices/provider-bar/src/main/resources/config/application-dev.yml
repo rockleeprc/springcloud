@@ -3,7 +3,7 @@ server:
   tomcat:
     accesslog:
       enabled: true
-      directory: D:/data/mircroservices/tomcat/provider-bar
+      directory: D:/data/microservices/tomcat/provider-bar
 
 spring:
   mvc:
