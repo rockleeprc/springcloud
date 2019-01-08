@@ -16,6 +16,7 @@
         <module>zuul-getway</module>
         <module>service-api</module>
         <module>provider-bar</module>
+        <module>auth-service</module>
     </modules>
 
 

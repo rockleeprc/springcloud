@@ -3,7 +3,7 @@ server:
   tomcat:
     accesslog:
       enabled: true
-      directory: D:/data/microservices/tomcat/provider-bar
+      #directory: D:/data/microservices/tomcat/provider-bar
 
 spring:
   mvc:
@@ -12,7 +12,7 @@ spring:
     dateFormat: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
   datasource:
-    url: jdbc:mysql://47.106.214.111:3306/canteen?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.106.214.111:3306/canteen?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     username: zybslave
     password:
     driverClassName: com.mysql.jdbc.Driver
@@ -59,7 +59,10 @@ eureka:
   client:
     registerWithEureka: true
     fetchRegistry: true
+    healthcheck:
+      enabled: true #开启将康检查，注册中心使用/health检查服务将康情况
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://admin:admin@localhost:8761/eureka/
+
 
 
