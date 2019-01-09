@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @SpringBootApplication
-@EnableDiscoveryClient
+@EnableEurekaClient
 @EnableZuulProxy
 @EnableOAuth2Sso
 public class ZuulServerApplication {

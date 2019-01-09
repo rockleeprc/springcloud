@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/bar")
-public interface BarApi {
+public interface    BarApi {
 
     @RequestMapping(path = "/info")
     public Result<String> info();
