@@ -1,0 +1,14 @@
+server:
+  port: 8102
+
+spring:
+  application:
+    name: foo-service
+
+eureka:
+  instance:
+   preferIpAddress: true
+   instanceId: ${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://admin:admin@127.0.0.1:8762/eureka/ #,http://admin:admin@127.0.0.1:8762/eureka/
