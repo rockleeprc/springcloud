@@ -2,6 +2,7 @@ package com.foobar.service.bar;
 
 import com.foobar.common.code.Result;
 import com.foobar.pojo.Person;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,7 +30,7 @@ public interface BarApi {
 
 
     @RequestMapping(value = "/person",method = RequestMethod.POST)
-    public Result<Person> person(Person person);
+    public Result<Person> person(@RequestBody Person person);
 
 
 }

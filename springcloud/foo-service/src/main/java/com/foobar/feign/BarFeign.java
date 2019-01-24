@@ -4,6 +4,8 @@ import com.foobar.feign.failback.BarFeignfallback;
 import com.foobar.common.code.Result;
 import com.foobar.pojo.Person;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,7 +20,7 @@ public interface BarFeign {
     @RequestMapping("/bar/dely")
     Result<String> dely();
 
-    @RequestMapping(value = "/bar/person",method = RequestMethod.POST)
-    Result<Person> person(Person person);
+    @RequestMapping(value = "/bar/person",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    Result<Person> person(@RequestBody Person person);
 
 }

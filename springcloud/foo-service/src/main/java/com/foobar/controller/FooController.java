@@ -4,6 +4,7 @@ import com.foobar.feign.BarFeign;
 import com.foobar.common.code.Result;
 import com.foobar.pojo.Person;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,8 +41,9 @@ public class FooController {
         return Result.ok();
     }
 
-    @RequestMapping(value = "/invokePerson",method = RequestMethod.POST)
-    public Result<Person> invokePerson(Person person){
+    @RequestMapping(value = "/invokePerson")
+    public Result<Person> invokePerson(Person person) {
+        System.out.println(person);
         return barFeign.person(person);
     }
 }

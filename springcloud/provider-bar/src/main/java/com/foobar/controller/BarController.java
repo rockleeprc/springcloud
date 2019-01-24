@@ -4,7 +4,9 @@ package com.foobar.controller;
 import com.foobar.common.code.Result;
 import com.foobar.pojo.Person;
 import com.foobar.service.bar.BarApi;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.TimeUnit;
@@ -47,7 +49,8 @@ public class BarController implements BarApi {
         return Result.ok();
     }
 
-    public Result<Person> person(Person person) {
+    @RequestMapping(value = "/person", method = RequestMethod.POST)
+    public Result<Person> person(@RequestBody Person person) {
         Person p = new Person();
         p.setName("bar-" + person.getName());
         p.setAge(1 + person.getAge());
