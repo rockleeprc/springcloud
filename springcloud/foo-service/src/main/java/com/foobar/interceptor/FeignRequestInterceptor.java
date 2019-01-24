@@ -10,7 +10,7 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.util.*;
 
-//@Component
+@Component
 public class FeignRequestInterceptor implements RequestInterceptor {
 
     @Autowired
@@ -28,7 +28,6 @@ public class FeignRequestInterceptor implements RequestInterceptor {
                 buildQuery(jsonNode, "", queries);
                 template.queries(queries);
             } catch (IOException e) {
-                //提示:根据实践项目情况处理此处异常，这里不做扩展。
                 e.printStackTrace();
             }
         }
