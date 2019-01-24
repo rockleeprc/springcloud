@@ -2,6 +2,9 @@ server:
   port: 8102
 
 spring:
+  profiles:
+    active:
+      - dev
   application:
     name: foo-service
   mvc:
@@ -12,8 +15,8 @@ spring:
 
 eureka:
   instance:
-   preferIpAddress: true
-   instanceId: ${spring.application.name}:${server.port}
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${server.port}
   client:
     serviceUrl:
       defaultZone: http://admin:admin@127.0.0.1:8761/eureka/ #,http://admin:admin@127.0.0.1:8762/eureka/
@@ -22,6 +25,23 @@ feign:
   hystrix:
     enabled: true
   httpclient:
-   enabled: false
+    enabled: false
   okhttp:
     enabled: true # 替换feign的httpclient为okhttp
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+hystrix:
+  command:
+    default: #default全局有效，service id指定应用有效
+      execution:
+        timeout: #如果enabled设置为false，则请求超时交给ribbon控制,为true,则超时作为熔断根据
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000 #断路器超时时间，默认1000ms
+
