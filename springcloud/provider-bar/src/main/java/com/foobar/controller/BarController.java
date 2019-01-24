@@ -2,6 +2,7 @@ package com.foobar.controller;
 
 
 import com.foobar.common.code.Result;
+import com.foobar.pojo.Person;
 import com.foobar.service.bar.BarApi;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,6 +45,13 @@ public class BarController implements BarApi {
             throw new RuntimeException("自定义抛出");
         }
         return Result.ok();
+    }
+
+    public Result<Person> person(Person person) {
+        Person p = new Person();
+        p.setName("bar-" + person.getName());
+        p.setAge(1 + person.getAge());
+        return Result.ok(p);
     }
 
 }
