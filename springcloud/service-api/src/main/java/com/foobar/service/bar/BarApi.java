@@ -18,4 +18,11 @@ public interface BarApi {
 
     @RequestMapping(path = "/params")
     public Result<String> params(@RequestParam("name") String name);
+
+    @RequestMapping(path = "/dely")
+    public Result<String> dely();
+
+    @RequestMapping("/thrw")
+    public Result thrw();
+
 }

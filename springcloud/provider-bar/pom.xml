@@ -13,7 +13,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.foobar</groupId>
+            <groupId>com.foo</groupId>
             <artifactId>service-api</artifactId>
             <version>${project.version}</version>
         </dependency>

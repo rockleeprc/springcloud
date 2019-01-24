@@ -3,8 +3,10 @@ package com.foobar.controller;
 
 import com.foobar.common.code.Result;
 import com.foobar.service.bar.BarApi;
-import com.foobar.service.foo.FooApi;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.TimeUnit;
 
 @RestController
 public class BarController implements BarApi {
@@ -25,6 +27,23 @@ public class BarController implements BarApi {
 
     public Result<String> params(String name) {
         return Result.ok(name);
+    }
+
+    public Result<String> dely() {
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Result.ok("sleep 10s");
+    }
+
+    @RequestMapping("/thrw")
+    public Result thrw() {
+        if (true) {
+            throw new RuntimeException("自定义抛出");
+        }
+        return Result.ok();
     }
 
 }

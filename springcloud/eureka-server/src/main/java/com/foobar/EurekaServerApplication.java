@@ -1,4 +1,4 @@
-package com.foo;
+package com.foobar;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
