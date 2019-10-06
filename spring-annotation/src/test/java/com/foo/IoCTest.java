@@ -15,7 +15,7 @@ public class IoCTest {
 
 
     @Test
-    public void test1(){
+    public void testBeanConfig() {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfig.class);
         Person person = (Person) applicationContext.getBean("personFactoryBean");
         ImportConfig.PersonFactoryBean factoryBean = (ImportConfig.PersonFactoryBean) applicationContext.getBean("&personFactoryBean");
@@ -24,34 +24,21 @@ public class IoCTest {
     }
 
     @Test
-    public void test2(){
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfig.class);
-        String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
-        Arrays.stream(beanDefinitionNames).forEach(System.out::println);
-    }
-
-    @Test
-    public void test3(){
-        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfig.class);
-        ConfigurableEnvironment environment = applicationContext.getEnvironment();
-        System.out.println(environment.getProperty("os.name"));
-    }
-
-    @Test
-    public void test4(){
+    public void testImportConfig() {
         AnnotationConfigApplicationContext application = new AnnotationConfigApplicationContext(ImportConfig.class);
         String[] beanDefinitionNames = application.getBeanDefinitionNames();
         Arrays.stream(beanDefinitionNames).forEach(System.out::println);
     }
 
     @Test
-    public void test5(){
+    public void testLifeConfig() {
         AnnotationConfigApplicationContext application = new AnnotationConfigApplicationContext(LifeConfig.class);
         Car car = (Car) application.getBean("car");
         application.close();
     }
+
     @Test
-    public void test6(){
+    public void testPropertyConfig() {
         AnnotationConfigApplicationContext application = new AnnotationConfigApplicationContext(PropertyConfig.class);
         Person per = (Person) application.getBean("person");
         System.out.println(per);
@@ -64,7 +51,7 @@ public class IoCTest {
     }
 
     @Test
-    public void testAutwaireConfig(){
+    public void testAutwairedConfig() {
         AnnotationConfigApplicationContext application = new AnnotationConfigApplicationContext(AutowiredConfig.class);
         Person person = application.getBean(Person.class);
         Car car = application.getBean(Car.class);
@@ -76,7 +63,7 @@ public class IoCTest {
     }
 
     @Test
-    public void testProfileConfig(){
+    public void testProfileConfig() {
         AnnotationConfigApplicationContext application = new AnnotationConfigApplicationContext();
         application.getEnvironment().setActiveProfiles("test");
         application.register(ProfileConfig.class);
