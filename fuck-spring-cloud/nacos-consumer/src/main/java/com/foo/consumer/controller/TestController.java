@@ -1,6 +1,6 @@
-package com.foo.controller;
+package com.foo.consumer.controller;
 
-import com.foo.remote.RemoteClient;
+import com.foo.consumer.remote.RemoteClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;

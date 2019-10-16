@@ -1,6 +1,6 @@
-package com.foo.remote.fallback;
+package com.foo.consumer.remote.fallback;
 
-import com.foo.remote.RemoteClient;
+import com.foo.consumer.remote.RemoteClient;
 import org.springframework.stereotype.Component;
 
 @Component

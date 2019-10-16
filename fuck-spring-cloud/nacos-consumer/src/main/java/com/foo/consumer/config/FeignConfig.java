@@ -1,7 +1,7 @@
-package com.foo.config;
+package com.foo.consumer.config;
 
-import com.foo.remote.RemoteClient;
-import com.foo.remote.fallback.RemoteClientFallback;
+import com.foo.consumer.remote.RemoteClient;
+import com.foo.consumer.remote.fallback.RemoteClientFallback;
 
 //@Component
 @Deprecated

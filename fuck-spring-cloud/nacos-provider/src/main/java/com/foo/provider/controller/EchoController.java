@@ -1,4 +1,4 @@
-package com.foo.controller;
+package com.foo.provider.controller;
 
 import org.springframework.beans.BeansException;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
