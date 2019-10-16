@@ -1,14 +1,13 @@
 package com.foo.config;
 
-import com.foo.controller.api.RemoteClient;
-import com.foo.controller.api.RemoteClientFallback;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import com.foo.remote.RemoteClient;
+import com.foo.remote.fallback.RemoteClientFallback;
 
-@Component
+//@Component
+@Deprecated
 public class FeignConfig {
 
-    @Bean
+    //@Bean
     public RemoteClient remoteClient() {
         return new RemoteClientFallback();
     }

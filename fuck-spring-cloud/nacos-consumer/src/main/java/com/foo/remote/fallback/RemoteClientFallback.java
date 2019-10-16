@@ -1,5 +1,9 @@
-package com.foo.controller.api;
+package com.foo.remote.fallback;
 
+import com.foo.remote.RemoteClient;
+import org.springframework.stereotype.Component;
+
+@Component
 public class RemoteClientFallback implements RemoteClient {
     @Override
     public String echo2(String str) {
@@ -11,3 +15,6 @@ public class RemoteClientFallback implements RemoteClient {
         return -1;
     }
 }
+/*
+RemoteClientFallback如果不标注@Component，需要单独在配置类中通过@Bean注入
+*/

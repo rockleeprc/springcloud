@@ -1,6 +1,7 @@
-package com.foo.controller.api;
+package com.foo.remote;
 
 import com.foo.config.FeignConfig;
+import com.foo.remote.fallback.RemoteClientFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
