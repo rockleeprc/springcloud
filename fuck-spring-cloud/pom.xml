@@ -19,6 +19,7 @@
         <module>nacos-consumer</module>
         <module>nacos-provider</module>
         <module>nacos-config</module>
+        <module>nacos-gateway</module>
     </modules>
 
     <dependencyManagement>
