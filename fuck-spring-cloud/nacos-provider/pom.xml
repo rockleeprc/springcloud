@@ -8,7 +8,7 @@
         <version>0.0.1-SNATHOST</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <version>0.0.2-SNATHOST</version>
     <artifactId>nacos-provider</artifactId>
 
     <dependencies>
@@ -29,18 +29,4 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>${project.artifactId}-${project.version}</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 </project>
