@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 9110
 spring:
   application:
     name: nacos-gateway
@@ -16,8 +16,6 @@ spring:
         locator:
           enabled: true
           lowerCaseServiceId: true
-          filters:
-            - StripPrefix=1
       routes:
         - id: NACOS-CONSUMER
           uri: lb://nacos-consumer
