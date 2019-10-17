@@ -15,6 +15,4 @@ public class RemoteClientFallback implements RemoteClient {
         return -1;
     }
 }
-/*
-RemoteClientFallback如果不标注@Component，需要单独在配置类中通过@Bean注入
-*/
+

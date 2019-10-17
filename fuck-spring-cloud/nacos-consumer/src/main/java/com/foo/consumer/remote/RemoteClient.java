@@ -16,6 +16,9 @@ public interface RemoteClient {
 
     @RequestMapping(value = "/div", method = RequestMethod.GET)
     public Integer div2(@RequestParam("i") Integer i, @RequestParam("j") Integer j);
-
-
 }
+/*
+RemoteClientFallback可以写成内部类
+@FeignClient：可以增加前缀
+RemoteClientFallback：如果不标注@Component，需要单独在配置类中通过@Configuration+@Bean注入
+ */
