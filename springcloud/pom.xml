@@ -20,7 +20,7 @@
     <properties>
         <java.version>1.8</java.version>
         <project.encoding>UTF-8</project.encoding>
-        <springplatform.version>Cairo-SR6</springplatform.version>
+        <springplatform.version>Cairo-SR7</springplatform.version>
         <springcloud.version>Finchley.SR2</springcloud.version>
         <mybatis.starter.version>1.3.0</mybatis.starter.version>
         <druid.starter.version>1.1.10</druid.starter.version>
@@ -60,5 +60,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>

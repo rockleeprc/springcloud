@@ -1,0 +1,31 @@
+server:
+  port: 9110
+spring:
+  application:
+    name: nacos-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: node5:8848
+    sentinel:
+      transport:
+        port: 8721
+        dashboard: node5:8010
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: NACOS-CONSUMER
+          uri: lb://nacos-consumer
+          predicates:
+            - Method=GET,POST
+        - id: NACOS-PROVIDER
+          uri: lb://nacos-provider
+          predicates:
+            - Method=GET,POST
+
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
