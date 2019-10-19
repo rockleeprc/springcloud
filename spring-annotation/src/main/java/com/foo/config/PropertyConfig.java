@@ -26,3 +26,11 @@ public class PropertyConfig implements EmbeddedValueResolverAware {
         this.stringValueResolver = resolver;
     }
 }
+
+/*
+Properties加载方式
+    1、@PropertySource + classpath:/person.properties
+    2、直接赋值
+    3、SpringEL #{}
+    4、占位符 ${} EmbeddedValueResolverAware
+ */

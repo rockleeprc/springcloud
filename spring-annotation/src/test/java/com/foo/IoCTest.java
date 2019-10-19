@@ -5,7 +5,6 @@ import com.foo.bean.Person;
 import com.foo.config.*;
 import com.foo.service.PersonService;
 import org.junit.Test;
-import org.springframework.context.Lifecycle;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
 
@@ -65,7 +64,7 @@ public class IoCTest {
     @Test
     public void testProfileConfig() {
         AnnotationConfigApplicationContext application = new AnnotationConfigApplicationContext();
-        application.getEnvironment().setActiveProfiles("test");
+        application.getEnvironment().setActiveProfiles("dev");
         application.register(ProfileConfig.class);
         application.refresh();
 
