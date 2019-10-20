@@ -20,3 +20,10 @@ public class TxConfig {
         return new DataSourceTransactionManager(dataSource);
     }
 }
+
+/*
+1、配置Datasource
+2、配置DataSourceTransactionManager
+3、开启事物管理功能@EnableTransactionManagement
+4、使用@Transactional注解
+ */
