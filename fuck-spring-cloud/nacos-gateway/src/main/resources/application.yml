@@ -17,14 +17,19 @@ spring:
           enabled: true
           lowerCaseServiceId: true
       routes:
-        - id: NACOS-CONSUMER
+        - id: nacos-consumer
           uri: lb://nacos-consumer
           predicates:
             - Method=GET,POST
-        - id: NACOS-PROVIDER
+        - id: nacos-provider
           uri: lb://nacos-provider
           predicates:
             - Method=GET,POST
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 logging:
   level:
