@@ -46,8 +46,8 @@ Spring @Autoware注入规则
     3、当由多个类型相同的组件时，使用@Qualifier指定组件的id，也可以使用@Primary定义优先使用的bean
     4、自动装配对象默认是一定要实例话的，@Autoware(required=false)可以不用实例化
     5、方法、方法参数、属性
-        @Bean+方法参数可以显示添加@Autowired
-        只有一个由参数构造器，@Autowired可以省略
+        @Bean+方法参数可以不显示添加@Autowired
+        只有一个有参数构造器，@Autowired可以省略
 
 JSR250 @Resource
     1、按照属性名称进行装配
