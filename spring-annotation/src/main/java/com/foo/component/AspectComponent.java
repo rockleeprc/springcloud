@@ -47,8 +47,8 @@ public class AspectComponent {
         System.out.println("afterThrowing targetMeth:" + joinPoint.getSignature().getName() + "  excepton:" + excepion);
     }
 
-   // @Around(value="pointCut()")
-    public void around(ProceedingJoinPoint pjp) throws Throwable {
+    @Around(value="pointCut()")
+    public Object around(ProceedingJoinPoint pjp) throws Throwable {
         System.out.println("before around ");
         System.out.println("around "+pjp.getTarget().getClass());
         Object[] args = pjp.getArgs();
@@ -56,8 +56,9 @@ public class AspectComponent {
         Object result = pjp.proceed(args);
         System.out.println("result="+result);
         System.out.println("after around ");
+        return result;
         /*
-        @Around执行后 service调用不会有结果返回
+        @Around 一定要有返回值，不然报错，后续advice没法执行
          */
     }
 }
