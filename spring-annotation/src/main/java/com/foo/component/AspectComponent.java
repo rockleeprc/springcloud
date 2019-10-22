@@ -1,8 +1,8 @@
 package com.foo.component;
 
 
-import com.sun.xml.internal.xsom.XSUnionSimpleType;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 
 /**
@@ -45,5 +45,19 @@ public class AspectComponent {
     @AfterThrowing(value = "pointCut()", throwing = "excepion")
     public void afterThrowing(JoinPoint joinPoint, Exception excepion) {
         System.out.println("afterThrowing targetMeth:" + joinPoint.getSignature().getName() + "  excepton:" + excepion);
+    }
+
+   // @Around(value="pointCut()")
+    public void around(ProceedingJoinPoint pjp) throws Throwable {
+        System.out.println("before around ");
+        System.out.println("around "+pjp.getTarget().getClass());
+        Object[] args = pjp.getArgs();
+        System.out.println("around "+args[0]);
+        Object result = pjp.proceed(args);
+        System.out.println("result="+result);
+        System.out.println("after around ");
+        /*
+        @Around执行后 service调用不会有结果返回
+         */
     }
 }
