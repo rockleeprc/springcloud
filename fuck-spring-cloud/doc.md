@@ -35,5 +35,11 @@ java -Dserver.port=8010 -Dcsp.sentinel.dashboard.server=localhost:8010 -Dproject
 访问地址：
 `http://node5:8010/`
 
+## gateway
+显示路由信息
+`http://node5:9110/actuator/gateway/routes`
+无效配置
+lowerCaseServiceId: false
+
 ## other
 获取启动的端口号 `implements ApplicationListener<WebServerInitializedEvent>`
