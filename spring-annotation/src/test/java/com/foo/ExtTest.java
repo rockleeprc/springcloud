@@ -1,5 +1,6 @@
 package com.foo;
 
+import com.foo.component.MyBeanDefinitionRegistryPostProcessor;
 import com.foo.config.ExtConfig;
 import org.junit.Test;
 import org.springframework.beans.BeansException;
@@ -41,6 +42,9 @@ public class ExtTest {
 
         ConfigurableListableBeanFactory listableBeanFactory = new DefaultListableBeanFactory();
         System.out.println(listableBeanFactory instanceof BeanDefinitionRegistry);
+
+        MyBeanDefinitionRegistryPostProcessor bean = context.getBean(MyBeanDefinitionRegistryPostProcessor.class);
+        System.out.println(bean);
 
         context.close();
     }
