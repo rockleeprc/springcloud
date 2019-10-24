@@ -4,50 +4,33 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 继承 管理所有版本 -->
+    <parent>
+        <groupId>com.foo</groupId>
+        <artifactId>spring-cloud-dependency</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../spring-cloud-dependency/pom.xml</relativePath>
+    </parent>
+
     <groupId>com.foo</groupId>
     <artifactId>fuck-spring-cloud</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNATHOST</version>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
+<!--    <properties>-->
+<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+<!--        <maven.compiler.source>1.8</maven.compiler.source>-->
+<!--        <maven.compiler.target>1.8</maven.compiler.target>-->
+<!--    </properties>-->
 
+    <!-- 聚合 管理所有module -->
     <modules>
-        <module>nacos-consumer</module>
-        <module>nacos-provider</module>
-        <module>nacos-config</module>
-        <module>nacos-gateway</module>
+        <module>../nacos-consumer</module>
+        <module>../nacos-provider</module>
+        <module>../nacos-config</module>
+        <module>../nacos-gateway</module>
     </modules>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.9.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>Greenwich.SR3</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>2.1.0.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <finalName>${project.artifactId}-${project.version}</finalName>
