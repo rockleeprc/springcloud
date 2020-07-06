@@ -47,5 +47,7 @@ public class ExtTest {
         System.out.println(bean);
 
         context.close();
+
     }
+
 }
