@@ -1,0 +1,25 @@
+server:
+  port: 9011
+
+spring:
+  application:
+    name: zuul-server
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+  client:
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: http://localhost:9001/eureka/
+
+#zuul:
+#  routes:
+#    bar-service: /bar-service/**
+#    bar-service: # 路由id，自定义
+#      path: /bar-service/** # 映射路径
+#      serviceId: bar-service # 转发的服务名称
+

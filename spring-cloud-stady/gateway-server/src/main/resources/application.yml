@@ -1,0 +1,50 @@
+server:
+  port: 9021
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true # 开启根据服务名称自动路由
+          lower-case-service-id: true # 服务名称小写
+      default-filters:
+        - name: Hystrix # 必须定义为Hystrix 只能是超时熔断
+          args:
+            name: fallbackmd
+            fallbackUri: forward:/fallback
+#      routes:
+#        - id: baidu_service
+#          uri: http://www.baidu.com
+#          predicates:
+#            - Path=/baidu
+#        - id: bar-service # 路由id，唯一
+#          uri: lb://bar-service # http://127.0.0.1:8071 微服务uri #  lb://bar-service根据服务名称从注册中心获取请求路径
+#          predicates: # 路由条件
+#            - Method=GET,POST
+#            - Path=/bar/** # 路径匹配规则
+#        - id: foo-service
+#          uri: lb://foo-service
+#          predicates:
+#            - Method=GET,POST
+#            - Path=/foo-service/foo/**
+#          filters:
+#            - StripPrefix=1 # 请求会去掉/foo-service
+
+logging:
+  level:
+    org.springframework.cloud.gateway: info
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 3
+    lease-expiration-duration-in-seconds: 9
+  client:
+    registry-fetch-interval-seconds: 10
+    service-url:
+      defaultZone: http://localhost:9001/eureka/
+

@@ -1,0 +1,13 @@
+server:
+  port: 9001
+
+eureka:
+  server:
+    enable-self-preservation: false # 关闭自我保护
+    eviction-interval-timer-in-ms: 3000 # 剔除服务间隔
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:9002/eureka/
