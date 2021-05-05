@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: nacos-foo-service # 服务名称 唯一标示
+  cloud:
+    nacos:
+      server-addr: node3:8848 # 声明注册中心地址
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr} # 注册地址的使用，默认配置
+
+server:
+  port: 9900 # 服务端口号
+
+management: # 建议所有服务都配置，默认引入actuator
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+

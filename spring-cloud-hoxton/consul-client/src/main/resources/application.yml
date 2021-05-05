@@ -11,7 +11,7 @@ spring:
 server:
   port: 8800 # 服务端口号
 
-foo-service: #这个是微服务的id
+consul-foo-service: #这个是微服务的id
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #随机策略
 
@@ -30,6 +30,6 @@ logging:
   level:
     org:
       consul:
-        cient:
+        client:
           feign: debug # feign调用接口所在的包必须为debug级别
 

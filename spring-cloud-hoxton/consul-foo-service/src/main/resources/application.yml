@@ -1,6 +1,6 @@
 spring:
   application:
-    name: foo-service # 服务名称 唯一标示
+    name: consul-foo-service # 服务名称 唯一标示
   cloud:
     consul:
       host: node3
