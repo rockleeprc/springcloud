@@ -92,7 +92,7 @@ public class InvokeFooController {
     public String invokeFooForRibbonInfo3() {
         log.info("invokeFooForRibbonInfo3");
         // url 只需要写服务名称，负载均衡由rest+ribbon自动实现
-        String result = restTemplate.getForObject("http://foo-service/foo/info", String.class);
+        String result = restTemplate.getForObject("http://consul-foo-service/foo/info", String.class);
         return result;
     }
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @FeignClient(name = "nacos-foo-service", fallback = FooServiceFallback.class)
 public interface FooServiceFeignClient {
 
-    // 与foo-service中的接口相同
+    // 与nacos-foo-service中的接口相同
     @GetMapping("/foo/info")
     String info();
 

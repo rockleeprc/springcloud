@@ -9,7 +9,7 @@ spring:
       service-name: ${spring.application.name} # 注册服务的名称
     gateway:
       routes:
-        - id: foo-service  # 路由id唯一标示，建议与服务名称相同
+        - id: consul-foo-service  # 路由id唯一标示，建议与服务名称相同
           uri: http://localhost:9902  # 路由服务地址
           predicates:  # 路由规则
             - Path=/foo/**  # 路径规则，以/foo/开头的请求转发给http://localhost:8500，** 表示匹配多级路径
