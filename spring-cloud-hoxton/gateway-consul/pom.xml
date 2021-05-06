@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>getway-consul</artifactId>
+    <artifactId>gateway-consul</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
