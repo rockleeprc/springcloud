@@ -13,7 +13,7 @@
         <module>consul-foo-service</module>
         <module>eureka-client</module>
         <module>consul-client</module>
-        <module>getway-consul</module>
+        <module>gateway-consul</module>
         <module>nacos-client</module>
         <module>nacos-foo-service</module>
         <module>nacos-config</module>
