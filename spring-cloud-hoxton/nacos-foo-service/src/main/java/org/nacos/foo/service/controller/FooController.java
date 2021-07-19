@@ -1,6 +1,5 @@
 package org.nacos.foo.service.controller;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.nacos.foo.service.entity.Person;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +52,6 @@ public class FooController {
         return now + "|" + port;
     }
 
-    @HystrixCommand(fallbackMethod = "circuitBreakerFallBack")
     @RequestMapping("/foo/circuitBreaker")
     public String circuitBreaker(Integer i) {
         log.info("circuitBreaker");

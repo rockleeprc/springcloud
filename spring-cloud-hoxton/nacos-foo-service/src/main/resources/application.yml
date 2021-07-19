@@ -6,6 +6,10 @@ spring:
       server-addr: node3:8848 # 声明注册中心地址
       discovery:
         server-addr: ${spring.cloud.nacos.server-addr} # 注册地址的使用，默认配置
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: node3:8080
 
 server:
   port: 9900 # 服务端口号
