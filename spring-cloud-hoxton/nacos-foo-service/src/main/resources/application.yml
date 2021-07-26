@@ -25,4 +25,4 @@ management: # 建议所有服务都配置，默认引入actuator
 logging:
   level:
     org.admin: DEBUG
-  file: D:/logs/nacos-foo-service.log
+#  file: D:/logs/nacos-foo-service.log
