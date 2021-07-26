@@ -18,6 +18,7 @@
         <module>nacos-foo-service</module>
         <module>nacos-config</module>
         <module>nacos-admin-service</module>
+        <module>nacos-gateway</module>
     </modules>
 
     <properties>
