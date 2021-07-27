@@ -5,7 +5,7 @@ spring:
     nacos:
       server-addr: node3:8848 # 声明注册中心地址
       discovery:
-        server-addr: ${spring.cloud.nacos.server-addr} # 注册地址的使用，默认配置
+        server-addr: ${spring.cloud.nacos.server-addr} # Nacos Server 启动监听的ip地址和端口，默认配置
     gateway:
       routes:
         - id: nacos-foo-service
