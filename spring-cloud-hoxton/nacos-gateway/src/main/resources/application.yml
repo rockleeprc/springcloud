@@ -14,7 +14,7 @@ spring:
             - Path=/nacos-foo-service/**
             - My=liyan # 自定义断言
           filters:
-            - StripPrefix=1
+            - StripPrefix=1 # 剔除服务名称
             - My=liyan
 
 management:
