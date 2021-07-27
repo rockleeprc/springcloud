@@ -11,10 +11,11 @@ spring:
         - id: nacos-foo-service
           uri: lb://nacos-foo-service   # lb 转发使用负载均衡策略
           predicates:
-            - Path=/**
-      discovery:
-        locator:
-          enabled: true  # 开启根据服务名称动态路由
+            - Path=/nacos-foo-service/**
+            - My=liyan # 自定义断言
+          filters:
+            - StripPrefix=1
+            - My=liyan
 
 management:
   endpoints:
