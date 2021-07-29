@@ -1,15 +1,14 @@
 spring:
-  profiles:
-    active: prod
-  application:
-    name: nacosconfig   # 服务名称 唯一标示
-  cloud:
-    nacos:
-      server-addr: node3:8848   # 注册配置中心地址
-      config:
-        group: DEFAULT_GROUP
-        server-addr: ${spring.cloud.nacos.server-addr}
-        file-extension: yaml    # 命名空间(public)+组(default)+data_id(name profiles extension)
+ cloud:
+  nacos:
+    server-addr: node3:8848   # 注册配置中心地址
+    username: nacos
+    password: nacos
+    config:
+      namespace: dev
+      group: DEFAULT_GROUP
+      server-addr: ${spring.cloud.nacos.server-addr}
+      file-extension: yaml    # 命名空间(public)+组(default)+data_id(name profiles extension)
 
 
 

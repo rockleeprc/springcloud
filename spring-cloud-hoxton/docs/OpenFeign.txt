@@ -1,0 +1,10 @@
+
+开启debug功能：
+    1、修改spring日志级别，feign接口所在包配置为debug日志级别
+    2、配置类中设置Logger.Level，在@FeignClient中设置配置类（配置类方式）
+    3、配置文件针对不同服务直接配置（配置文件方式）
+
+拦截器：
+    1、在客户端调用服务端时使用，不同于springmvc的拦截器
+    2、实现RequestInterceptor接口（支持配置类和配置文件两钟方式）
+

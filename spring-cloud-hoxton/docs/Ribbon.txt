@@ -1,0 +1,22 @@
+Ribbon负载均衡策略：
+    RandomRule：随机选择一个server
+    BestAvailableRule：逐个考察server，如果server断路器打开，则忽略，再选择其中并发链接最低的server
+    RoundRobinRule：轮询选择，轮询index，选择index对应位置的server
+    WeightedResponseTimeRule：根据server的响应时间分配权重，响应时间越长，权重越低，被选择到的概率也就越低，响应时间越短，权重越高，被选中的概率越高，这个策略很贴切，综合了各种因素，比如：网络，磁盘，io等，都直接影响响应时间
+    ZoneAvoidanceRule：综合判断server所在区域的性能，和server的可用性，轮询选择server并且判断一个AWS Zone的运行性能是否可用，剔除不可用的Zone中的所有server
+    NacosRule：根据nacos配置的权重
+
+配置文件自定义负载均衡策略：
+    server-name: # 微服务的id，针对当前服务生效
+        ribbon:
+            NFLoadBalancerRuleClassName: xxxRule # 策略
+
+配置类自定义负载均衡策略：
+    1、声明配置类，不能被@ComponentScan扫描到，方法必须是iRule()
+    2、在主类上配置@RibbonClients，针对不同服务配置负载均衡策略
+
+@Bean+@LocaBalance RestTemplate自动使用Ribbon做为负载均衡
+
+Ribbon默认懒加载，只有第一次服务调用时才加载负载均衡策略，可以针对某个服务配置在启动时就加载负载策略
+
+不支持WebFlux

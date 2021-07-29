@@ -8,7 +8,7 @@ spring:
         server-addr: ${spring.cloud.nacos.server-addr} # Nacos Server 启动监听的ip地址和端口，默认配置
     gateway:
       routes:
-        - id: nacos-foo-service
+        - id: nacos-foo-service # 唯一路由标示
           uri: lb://nacos-foo-service   # lb 转发使用负载均衡策略
           predicates:
             - Path=/nacos-foo-service/**

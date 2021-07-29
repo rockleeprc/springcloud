@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 @Slf4j
+@RequestMapping("/foo")
 public class FooController {
 
     @Value("${server.port}")
