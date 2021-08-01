@@ -2,6 +2,14 @@
 官方文档：
 https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md
 
+注册中心cap：
+    1、nacos AP+CP
+    2、Eureka AP
+    3、Consul CP
+    4、ZK CP
+
+================================================================================================
+
 配置中心种类：
     1、spring cloud config
     2、apollo

@@ -7,9 +7,14 @@ spring:
   cloud:
     nacos:
       server-addr: node3:8848 # 声明注册中心地址
+      username: nacos
+      password: nacos
       discovery:
         server-addr: ${spring.cloud.nacos.server-addr} # 注册地址的使用，默认配置
-
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: node3:8080
 ribbon:
   eager-load: # 默认懒加载
     enabled: true # 启动就加载
@@ -22,8 +27,8 @@ management: # 建议所有服务都配置，默认引入actuator
         include: "*"
 
 feign:
-  hystrix:
-    enabled: true # 开启openfeign支持hystrix
+  sentinel:
+    enabled: true
   client:
     config:
       nacos-foo-service: # default 针对所有服务都生效

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.nacos.client.entity.Person;
 import org.nacos.client.feign.FooServiceFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -18,13 +19,13 @@ import java.util.List;
 @Slf4j
 public class InvokeFooController {
 
-    @Autowired
+//    @Autowired
     private DiscoveryClient discoveryClient;
 
-    @Autowired
+//    @Autowired
     private LoadBalancerClient loadBalancerClient;
 
-    @Autowired
+//    @Autowired
     private RestTemplate restTemplate;
 
     @Autowired
