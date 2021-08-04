@@ -2,6 +2,7 @@ package org.nacos.foo.service.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.nacos.foo.service.entity.Person;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/foo")
 public class FooController {
 
+
     @Value("${server.port}")
     private Integer port;
 
@@ -20,7 +22,7 @@ public class FooController {
     public String info() {
         LocalDateTime now = LocalDateTime.now();
         log.info("request {}, port {}", now, port);
-        return "now:" + now + " port:" + port;
+        return "now----------:" + now + " port:" + port;
     }
 
     @GetMapping("/foo/param1")
