@@ -1,8 +1,7 @@
-package org.nacos.client.feign;
+package org.nacos.client.hystrix.feign;
 
-import org.nacos.client.config.OpenFeignConfig;
-import org.nacos.client.entity.Person;
-import org.nacos.client.feign.fallback.FooServiceFallback;
+import org.nacos.client.hystrix.entity.Person;
+import org.nacos.client.hystrix.feign.fallback.FooServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
  * path：服务提供方controller中@RequestMapping("/foo")的名称
  * configuration：使用配置类
  */
-@FeignClient(name = "nacos-foo-service", path = "/foo", fallback = FooServiceFallback.class,configuration = OpenFeignConfig.class)
+@FeignClient(name = "nacos-foo-service", path = "/foo", fallback = FooServiceFallback.class)
 public interface FooServiceFeignClient {
 
     // 与nacos-foo-service中的controller方法相同

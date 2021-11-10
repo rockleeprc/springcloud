@@ -48,7 +48,7 @@ public class FooController {
         log.info("delay");
         LocalDateTime now = LocalDateTime.now();
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

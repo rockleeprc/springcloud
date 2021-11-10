@@ -39,8 +39,7 @@ public class MyGatewayFilterFactory extends AbstractGatewayFilterFactory<MyGatew
     public GatewayFilter apply(MyGatewayFilterFactory.Config config) {
         return new GatewayFilter() {
             @Override
-            public Mono<Void> filter(ServerWebExchange exchange,
-                                     GatewayFilterChain chain) {
+            public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
                 ServerHttpRequest request = exchange.getRequest();
                 List<String> names = request.getQueryParams().get(NAME);
 

@@ -1,3 +1,6 @@
+server:
+  port: 8000 # 服务端口号
+
 spring:
   application:
     name: nacos-gateway # 服务名称 唯一标示
@@ -25,6 +28,5 @@ management:
     gateway:
       enabled: true # 开启gateway端点
 
-server:
-  port: 8000 # 服务端口号
+
 

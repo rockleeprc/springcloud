@@ -16,9 +16,6 @@ import java.util.function.Predicate;
 @Component
 public class MyRoutePredicateFactory extends AbstractRoutePredicateFactory<MyRoutePredicateFactory.Config> {
 
-    /**
-     * DateTime key.
-     */
     public static final String MY_PARAM = "myParam";
 
     public MyRoutePredicateFactory() {

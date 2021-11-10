@@ -6,7 +6,7 @@ https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md
     1、nacos AP+CP
     2、Eureka AP
     3、Consul CP
-    4、ZK CP
+    4、ZK CPLi
 
 ================================================================================================
 
@@ -16,9 +16,23 @@ https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md
     3、nacos（性能、容器化比apollo支持好）
 
 命名：
-    1、namespace：按照环境，prod、test、dev
-    2、group：按照项目
-    3、dataID：具体到某个服务
+    1、namespace：按照环境（prod、test、dev）、按照人员（多租户使用）
+    2、group：按照项目、同一项目不同模块，建议使用artifactId
+    3、dataID：具体到某个服务的配置文件，
+        默认格式：${prefix}-${spring.profiles.active}.${file-extension}
+            profiles为空：${prefix}.${file-extension}
+            prefix 默认为 spring.application.name
+
+　　定义一：
+　　　　1. NameSpace：区分不同的环境
+　　　　2. Group：区分不同的项目或系统
+　　　　3. DataId：项目中的配置文件
+
+　　定义二：
+　　　　1. NameSpace：区分不同的项目
+　　　　2. Group：区分不同的模块
+　　　　3. DataId：区分不同的环境
+
 
 权限设置：
     1、nacos.core.auth.enabled=true，必须配置true权限功能才会生效
