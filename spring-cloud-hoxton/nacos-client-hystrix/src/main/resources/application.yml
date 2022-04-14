@@ -1,0 +1,37 @@
+server:
+  port: 8880 # 服务端口号
+
+spring:
+  application:
+    name: nacos-client-hystrix # 服务名称 唯一标示
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: node3:8848 # 注册中心地址，默认配置
+
+ribbon:
+  eager-load: # 默认懒加载
+    enabled: true # 启动就加载
+    clients: nacos-foo-service
+
+management: # 建议所有服务都配置，默认引入actuator
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      nacos-foo-service: # default 针对所有服务都生效
+        connect-timeout: 5000 # 连接超时时间 单位毫秒
+        read-timeout: 2000 # 读超时时间 单位毫秒
+        logger-level: full
+
+logging:
+  level:
+    org.nacos.client.hystrix.feign: debug # feign调用接口所在的包必须为debug级别

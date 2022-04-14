@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: sentilne-example # 服务名称 唯一标示
+server:
+  port: 9900 # 服务端口号
+

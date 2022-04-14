@@ -1,0 +1,55 @@
+
+官方文档：
+https://github.com/alibaba/spring-cloud-alibaba/blob/master/README-zh.md
+
+注册中心cap：
+    1、nacos AP+CP
+    2、Eureka AP
+    3、Consul CP
+    4、ZK CPLi
+
+================================================================================================
+
+配置中心种类：
+    1、spring cloud config
+    2、apollo
+    3、nacos（性能、容器化比apollo支持好）
+
+命名：
+    1、namespace：按照环境（prod、test、dev）、按照人员（多租户使用）
+    2、group：按照项目、同一项目不同模块，建议使用artifactId
+    3、dataID：具体到某个服务的配置文件，
+        默认格式：${prefix}-${spring.profiles.active}.${file-extension}
+            profiles为空：${prefix}.${file-extension}
+            prefix 默认为 spring.application.name
+
+　　定义一：
+　　　　1. NameSpace：区分不同的环境
+　　　　2. Group：区分不同的项目或系统
+　　　　3. DataId：项目中的配置文件
+
+　　定义二：
+　　　　1. NameSpace：区分不同的项目
+　　　　2. Group：区分不同的模块
+　　　　3. DataId：区分不同的环境
+
+
+权限设置：
+    1、nacos.core.auth.enabled=true，必须配置true权限功能才会生效
+    2、配置文件中必须配置username、password
+
+读取配置信息：
+    1、默认根据服务名称获取去nacos中的配置文件
+    2、默认读取properties文件，读取其它配置文件修改file-extension
+    3、读取profiles文件，dataID配置nacos-config-prod.yaml，在本地配置文件中激活profiles.active: prod
+        建议通过namespace区分profile文件，不建议在一个namespace使用多个profile文件，权限管理只能针对namespace
+    4、原理：每隔10ms去拉取配置文件，通过md5比较文件是否变化
+
+配置文件优先级（配置互补）：
+    1、profile
+    2、默认配置文件（服务名称对应的配置文件）
+    3、extension-configs（下表越大优先级越高）
+    4、shared-configs
+
+@RefreshScope：
+    1、动态刷新@Value配置

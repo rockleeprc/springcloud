@@ -1,0 +1,41 @@
+server:
+  port: 8800 # 服务端口号
+
+spring:
+  application:
+    name: nacos-client # 服务名称 唯一标示
+  cloud:
+    nacos:
+      server-addr: node3:8848 # 声明注册中心地址
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr} # 注册中心地址，默认配置
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: node3:8080
+ribbon:
+  eager-load: # 默认懒加载
+    enabled: true # 启动就加载
+    clients: nacos-foo-service
+
+management: # 建议所有服务都配置，默认引入actuator
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+feign:
+  sentinel:
+    enabled: true
+  client:
+    config:
+      nacos-foo-service: # default 针对所有服务都生效
+        connect-timeout: 5000 # 连接超时时间 单位毫秒
+        read-timeout: 3000 # 读超时时间 单位毫秒
+        logger-level: full
+
+logging:
+  level:
+    org.nacos.client.feign: debug # feign调用接口所在的包必须为debug级别

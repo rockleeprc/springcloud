@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: eureka-server # 服务名称 唯一标示
+  profiles:
+    active:
+      - dev
+
+server:
+  port: 8761 # 服务端口号
+
+eureka:
+  client:
+    serverice-url:
+      defaultZone: http://localhost:8761/eureka # server端暴露的注册中心地址
+    fetch-registry: false # 是否从Eureka Server获取注册的服务信息
+    register-with-eureka: false # 是否将自己注册到Eureka Serve
+  server:
+    enableSelfPreservation: false # 关闭自我保护机制
+    eviction-interval-timer-in-ms: 2000 # 2秒内没有收到微服务的心跳，就剔除该微服务，单位为毫秒
