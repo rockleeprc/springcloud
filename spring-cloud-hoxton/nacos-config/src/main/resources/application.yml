@@ -1,3 +1,0 @@
-spring:
-  application:
-    name: nacos-config   # 根据服务名称去nacos获取配置配置信息
